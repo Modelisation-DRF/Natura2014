@@ -1,11 +1,22 @@
 Package: RNatura2014
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Title: Forest growth simulator Natura-2014
+Version: 2.0.0
+Author: Isabelle Auger, isabelle.auger@mrnf.gouv.qc.ca
+Maintainer: Isabelle Auger <isabelle.auger@mrnf.gouv.qc.ca>
+Description: Natura-2014 is a stand level forest growth model based on stand age.
+    It uses merchantable stand characteristics at age t to predict them at time age+10 years.
+	  The model predict number of trees, basal area and volume for 5 species groups (tolerant hardwood, intolerant harwood, tolerant softwood, intolerant softwood, balsam fir).
+	  The model can only run in deterministic mode.
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
+Depends: 
+    tidyverse,
+    readxl,
+		TarifQC,
+    R (>= 2.10)
+Suggests: 
+    testthat (>= 3.0.0)
+RoxygenNote: 7.2.3
+Config/testthat/edition: 3

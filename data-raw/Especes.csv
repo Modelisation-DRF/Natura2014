@@ -1,0 +1,54 @@
+SpeciesID;Essence;Nom_ess;Groupe_ess
+1;BOG;Bouleau gris (à feuilles de peuplier);Fi
+2;BOJ;Bouleau jaune;Ft
+3;BOP;Bouleau blanc (à papier);Fi
+4;CAC;Caryer cordiforme;Fi
+5;CAF;Caryer à fruits doux (ovale);Ft
+6;CET;Cerisier tardif;Fi
+7;CHB;Chêne blanc;Ft
+8;CHE;Chêne bicolore;Ft
+9;CHG;Chêne à gros fruits;Ft
+10;CHR;Chêne rouge;Fi
+11;EPB;Épinette blanche;Rt
+12;EPN;Épinette noire;Rt
+13;EPO;Épinette de Norvège;Rt
+14;EPR;Épinette rouge;Rt
+15;ERA;Érable argenté;Fi
+16;ERN;Érable noir;Ft
+17;ERR;Érable rouge;Ft
+18;ERS;Érable à sucre;Ft
+19;FRA;Frêne d'Amérique;Ft
+20;FRN;Frêne noir;Ft
+21;FRP;Frêne de Pennsylvanie;Ft
+22;HEG;Hêtre à grandes feuilles;Ft
+23;MEJ;Mélèze japonais;Ri
+24;MEL;Mélèze laricin;Ri
+25;MEU;Mélèze européen;Ri
+26;NOC;Noyer cendré;Fi
+27;ORA;Orme d'Amérique;Ft
+28;ORR;Orme rouge;Ft
+29;ORT;Orme de Thomas (liège);Ft
+30;OSV;Ostryer de Virginie;Ft
+31;PEB;Peuplier baumier;Fi
+32;PED;Peuplier à feuilles deltoïdes;Fi
+33;PEG;Peuplier à grandes dents;Fi
+34;PEH;Peuplier hybride;Fi
+35;PET;Peuplier faux tremble;Fi
+36;PIB;Pin blanc;Rt
+37;PID;Pin rigide;Ri
+38;PIG;Pin gris;Ri
+39;PIR;Pin rouge;Ri
+40;PIS;Pin sylvestre;Ri
+41;PRU;Pruche de l'Est;Rt
+42;SAB;Sapin baumier;Sab
+43;THO;Thuya occidental;Rt
+44;TIL;Tilleul d'Amérique;Ft
+45;CAR;Charme de Caroline;NC
+46;CEO;Micocoulier occidental;NC
+47;ERG;Érable à Giguère;NC
+48;ERP;Érable de Pennsylvanie;NC
+49;MAS;Pommier;NC
+50;PRP;Cerisier de Pennsylvanie;NC
+51;SAL;Saule;NC
+52;SOA;Sorbier d'Amérique;NC
+53;SOD;Sorbier des montagnes;NC
