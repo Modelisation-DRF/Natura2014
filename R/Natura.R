@@ -442,7 +442,13 @@ Natura <- function(data, horizon, dec_perturb=0, dec_tbe1=0, tbe1=0, dec_tbe2=0,
            dqri = ifelse(nri>0, sqrt((stri*40000)/(nri*pi)), NA),
            dqrt = ifelse(nrt>0, sqrt((strt*40000)/(nrt*pi)), NA),
            dqsab = ifelse(nsab>0, sqrt((stsab*40000)/(nsab*pi)), NA),
-           dqcom = ifelse(ncom>0, sqrt((stcom*40000)/(ncom*pi)), NA)
+           dqcom = ifelse(ncom>0, sqrt((stcom*40000)/(ncom*pi)), NA),
+           dqfi = ifelse(dqfi<9, NA, dqfi),
+           dqft = ifelse(dqft<9, NA, dqft),
+           dqri = ifelse(dqri<9, NA, dqri),
+           dqrt = ifelse(dqrt<9, NA, dqrt),
+           dqsab = ifelse(dqsab<9, NA, dqsab),
+           dqcom = ifelse(dqcom<9, NA, dqcom)
            ) %>%
     rename(ntot=ncom, sttot=stcom, vtot=vcom, dqtot=dqcom, indice_tbe=tbe, presence_perturb = pert) %>%
     dplyr::select(placette, annee, age, is, hd, ntot, sttot, vtot, dqtot,

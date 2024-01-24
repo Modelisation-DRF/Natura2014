@@ -86,10 +86,14 @@ Une table contenant les résultats de la simulation, une ligne par placette/déc
    \item age: âge du peuplement (années)
    \item is: indice de structure diamétrale de Shannon
    \item hd: hauteur dominante (m)
+   \item ntot: nombre total de d'arbres de plus de 9 cm (somme des 5 groupes d'essences) (nb/ha)
+   \item sttot: surface terrière marchande totale (somme des 5 groupes d'essences) (m2/ha)
+   \item vtot: volume marchand brut total (somme des 5 groupes d'essences) (m3/ha)
+   \item dqtot: dhp moyen quadratique toutes essences (calculé à partir de ntot et sttot) (cm)
    \item nfi, nft, nri, nrt, nsab : nombre d'arbres de plus de 9 cm du groupe d'essences (nb/ha)
    \item stfi, stft, stri, strt, stsab: surface terrière marchande du groupe d'essences (m2/ha)
    \item vfi, vft, vri, vrt, vsab: volume marchand brut du groupe d'essences (m3/ha)
-   \item dqfi, dqft, dqri, dqrt, dqsab : dhp moyen quadratique du groupe d'essences (cm)
+   \item dqfi, dqft, dqri, dqrt, dqsab : dhp moyen quadratique du groupe d'essences, calculé à partir de n et st (cm)
    \item indice_tbe: Sévérité de l'épidémie de TBE à la décennie simulée
    \item presence_perturb: 1 à la décennie où une perturbation a été simulée
    \item Warning: Prend la valeur de 1 si le nombre de tiges à l’hectare d’un groupe d’essences dépasse 5000 tiges/ha ou si la surface terrière d’un groupe dépasse 100 m2/ha pour la placette.
