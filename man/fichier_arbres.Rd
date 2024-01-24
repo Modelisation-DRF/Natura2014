@@ -3,7 +3,7 @@
 \docType{data}
 \name{fichier_arbres}
 \alias{fichier_arbres}
-\title{Fichier d'intrant à l'échelle de l'arbres pour Natura-2014}
+\title{Fichier d'intrant à l'échelle de l'arbre pour Natura-2014}
 \format{
 ## `fichier_arbres`
 Table de 29 lignes et 11 colonnes:

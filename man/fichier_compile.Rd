@@ -39,7 +39,7 @@ Table de 2 lignes et 25 colonnes:
 fichier_compile
 }
 \description{
-Deux placettes
+Deux placettes avec leurs caractéristiques dendrométriques
 }
 \examples{
 fichier_compile

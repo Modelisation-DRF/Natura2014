@@ -1,4 +1,4 @@
-#' Fichier d'intrant à l'échelle de l'arbres pour Natura-2014
+#' Fichier d'intrant à l'échelle de l'arbre pour Natura-2014
 #'
 #' Deux placettes avec leur liste d'arbres
 #'
@@ -46,7 +46,7 @@
 
 #' Fichier d'intrant à l'échelle de la placette pour Natura-2014
 #'
-#' Deux placettes
+#' Deux placettes avec leurs caractéristiques dendrométriques
 #'
 #' @format ## `fichier_compile`
 #' Table de 2 lignes et 25 colonnes:
