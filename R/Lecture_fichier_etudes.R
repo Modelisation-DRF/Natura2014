@@ -2,19 +2,18 @@
 #'
 #' @description Lire le fichier des arbres-études et valider le nom des colonnes.
 #'
-#' @param file Nom du fichier à lire (table ou Excel)
+#' @param file_etude Nom du fichier à lire (table ou Excel)
 #'
 #' @return Table dont les arbres-études ont été filtrés ou un message d'erreur s'il y a une erreur dans le nom des colonnes.
 #' @export
 #'
-#' @examples
 Lecture_etudes <- function(file_etude){
 
   # lire le fichier des arbres-etudes
   if (!is.data.frame(file_etude)) {
     suppressMessages(
-      if (grepl(".xls", file_etude)) {etudes <- read_excel(file_etude)}
-      else if (grepl(".csv", file_etude)) {etudes <- read_delim(file_etude, delim = ";")} # fread met ID_PE numérique, mais pas read_delim
+      if (grepl(".xls", file_etude)) {etudes <- readxl::read_excel(file_etude)}
+      else if (grepl(".csv", file_etude)) {etudes <- readr::read_delim(file_etude, delim = ";")} # fread met ID_PE numérique, mais pas read_delim
     )
   }
   else etudes <- file_etude

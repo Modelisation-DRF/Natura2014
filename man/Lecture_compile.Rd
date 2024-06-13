@@ -7,7 +7,7 @@
 Lecture_compile(file_compile)
 }
 \arguments{
-\item{file}{Nom du fichier des placette à lire (table ou Excel)}
+\item{file_compile}{Nom du fichier des placette à lire (table ou Excel)}
 }
 \value{
 Table à l'échelle de la placette ou un message d'erreur s'il y a une erreur dans le nom des colonnes.

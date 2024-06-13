@@ -11,7 +11,6 @@
 #' @return Table des caractéristiques des placettes (une ligne par placette)
 #' @export
 #'
-#' @examples
 Prep_arbres <- function(fic_arbre, ht, vol){
 
   # fic_arbre=Arbres; ht=ht; vol=vol;
@@ -67,13 +66,13 @@ Data1 <- inner_join(Data1, vp, by='veg_pot')
 
 # calcul de la hauteur des arbres
 if (isTRUE(ht)) {
-  DataHt <- relation_h_d(fic_arbres=Data1)
+  DataHt <- TarifQC::relation_h_d(fic_arbres=Data1)
 }
 else DataHt <- Data1
 
 # Calcul du volume des arbres: prévoit le volume en dm3 pour un arbre entier (ne tient pas compte du nombre d'arbres)
 if (isTRUE(vol)) {
-  DataHtVol <- cubage(fic_arbres=DataHt)
+  DataHtVol <- TarifQC::cubage(fic_arbres=DataHt)
 }
 else DataHtVol <- DataHt
 

@@ -8,7 +8,6 @@
 #' @return Table contenant la hauteur dominante et l'âge de chaque placette, une ligne par placette.
 #' @export
 #'
-#' @examples
 Prep_etude <- function(fic_etude, compile_arbre){
 
 

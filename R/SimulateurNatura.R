@@ -58,7 +58,7 @@
 #'    \item nfi, nft, nri, nrt, nsab : nombre d'arbres de plus de 9 cm du groupe d'essences à l'hectare (nb/ha), mettre 0 si absent.
 #'    \item stfi, stft, stri, strt, stsab: surface terrière marchande du groupe d'essences (m2/ha), mettre 0 si absent.
 #'    \item vfi, vft, vri, vrt, vsab: volume marchand brut du groupe d'essences (m3/ha), mettre 0 si absent. Si aucun volume, mettre les 5 groupes à 0 et l'évolution du volume ne sera pas effectué.
-#' }}
+#' }
 #' @param file_export  Nom du fichier à exporter contenant les résultats de la simulation (format csv), optionnel.
 #' @param horizon Nombre de décennies à simuler, un chiffre de 1 à 15
 #' @param ht Booléen

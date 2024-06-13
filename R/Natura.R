@@ -16,7 +16,6 @@
 #' @return Table avec une ligne par placette et pas de simulation contenant les prévision de HD et IS et de N, ST et V de chacun des groupes d'essences
 #' @export
 #'
-#' @examples
 Natura <- function(data, horizon, dec_perturb=0, dec_tbe1=0, tbe1=0, dec_tbe2=0, tbe2=0){
 
 # data=Data_compile2; horizon=horizon; dec_perturb=dec_perturb; dec_tbe1=dec_tbe1; tbe1=tbe1; dec_tbe2=dec_tbe2; tbe2=tbe2;

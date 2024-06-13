@@ -2,20 +2,19 @@
 #'
 #' @description Lire le fichier des placettes à simuler avec Natura et valider le nom des colonnes.
 #'
-#' @param file Nom du fichier des placette à lire (table ou Excel)
+#' @param file_compile Nom du fichier des placette à lire (table ou Excel)
 #'
 #' @return Table à l'échelle de la placette ou un message d'erreur s'il y a une erreur dans le nom des colonnes.
 #' @export
 #'
-#' @examples
 Lecture_compile <- function(file_compile){
 
 
   # lire le fichier des arbres
   if (!is.data.frame(file_compile)) {
     suppressMessages(
-      if (grepl(".xls", file_compile)) {comp <- read_excel(file_compile)}
-      else if (grepl(".csv", file_compile)) {comp <- read_delim(file_compile, delim = ";")} # fread met ID_PE numérique, mais pas read_delim
+      if (grepl(".xls", file_compile)) {comp <- readxl::read_excel(file_compile)}
+      else if (grepl(".csv", file_compile)) {comp <- readr::read_delim(file_compile, delim = ";")} # fread met ID_PE numérique, mais pas read_delim
     )
   }
   else comp <- file_compile
