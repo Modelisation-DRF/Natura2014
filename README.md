@@ -21,7 +21,7 @@ Le package peut être installé à l'aide du package remotes:
 
 ~~~R
 library(remotes)
-remotes::install_github("CWFC-CCFB/QcPSP")
+remotes::install_github("Modelisation-DRF/RNatura2014")
 ~~~
 
 
