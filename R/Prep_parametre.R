@@ -7,7 +7,6 @@
 #' @return Table contenant toutes les colonnes nécessaires pour effectuer une simulation, incluant les paramètres
 #' @export
 #'
-#' @examples
 Prep_parametre<-function(data){
 
 

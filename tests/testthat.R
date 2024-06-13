@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(Natura2014R)
+library(RNatura2014)
 
-test_check("Natura2014R")
+test_check("RNatura2014")

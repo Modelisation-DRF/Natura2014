@@ -35,8 +35,6 @@ Si ce paramètre n'est pas utilisé, \code{file_compile} doit l'être. Le nom de
   \item \code{TRUE} (par défaut): le volume de chacun des arbres doit être estimé
   \item \code{FALSE}: la variable vol_dm3 est fournie dans le fichier \code{file_arbre} (en dm3 par tige), si le volume est fourni, la hauteur ne sera pas estimée.
 }}
-
-\item{file}{Nom du fichier des arbres à lire (table ou xlsx)}
 }
 \value{
 Table dont les arbres ont été filtrés ou un message d'erreur s'il y a une erreur dans le nom des colonnes.

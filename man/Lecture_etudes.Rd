@@ -7,7 +7,7 @@
 Lecture_etudes(file_etude)
 }
 \arguments{
-\item{file}{Nom du fichier à lire (table ou Excel)}
+\item{file_etude}{Nom du fichier à lire (table ou Excel)}
 }
 \value{
 Table dont les arbres-études ont été filtrés ou un message d'erreur s'il y a une erreur dans le nom des colonnes.

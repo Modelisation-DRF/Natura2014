@@ -2,13 +2,11 @@
 #'
 #' @description Lire le fichier des arbres à simuler avec Natura et valider le nom des colonnes.
 #'
-#' @param file Nom du fichier des arbres à lire (table ou xlsx)
 #' @inheritParams SimulNatura
 #'
 #' @return Table dont les arbres ont été filtrés ou un message d'erreur s'il y a une erreur dans le nom des colonnes.
 #' @export
 #'
-#' @examples
 Lecture_arbres <- function(file_arbre, ht, vol){
 
 
@@ -19,8 +17,11 @@ Lecture_arbres <- function(file_arbre, ht, vol){
 # vérifier si le fichier est un objet R
 if (!is.data.frame(file_arbre)) {
 suppressMessages(
-  if (grepl(".xls", file_arbre)) {arbres <- read_excel(file_arbre)}
-  else if (grepl(".csv", file_arbre)) {arbres <- read_delim(file_arbre, delim = ";")} # fread met ID_PE numérique, mais pas read_delim
+  if (grepl(".xls", file_arbre)) {
+    arbres <- readxl::read_excel(file_arbre)
+  } else if (grepl(".csv", file_arbre)) {
+    arbres <- readr::read_delim(file_arbre, delim = ";") # fread met ID_PE numérique, mais pas read_delim
+  }
 )
 }
 else {arbres <- file_arbre}

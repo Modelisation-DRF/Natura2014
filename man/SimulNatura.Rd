@@ -48,6 +48,23 @@ Si ce paramètre n'est pas utilisé, \code{file_compile} doit l'être. Le nom de
   \item age: âge de l'arbre-étude, mesuré à 1 m (années)
 }}
 
+\item{file_compile}{Optionnel. Nom du fichier contenant les caractéristiques dendrométriques des placettes (table, csv ou xlsx). Une ligne par placette.
+ Si ce paramètre n'est pas utilisé, \code{file_arbre} et \code{file_etude} doivent l'être. Le nom des colonnes doit être:
+ \itemize{
+   \item placette: identifiant unique de la placette
+   \item sdom_bio: code du sous-domaine bioclimatique, en majuscule (ex: 2EST, 4OUEST ou 2E, 4O)
+   \item altitude: altitude (m)
+   \item type_eco: code du type écologique (ex: MS22)
+   \item p_tot: précipitation totale annuelle, moyenne sur la période 1980-2010 (mm)
+   \item t_ma: température moyenne annuelle sur la période 1980-2010 (Celcius)
+   \item age: âge du peuplement (années)
+   \item is: indice de structure diamétrale de Shannon (valeur entre 0 et 1; 0 : toutes les tiges sont dans la même classe de dhp; 1 : les tiges sont également distribuées dans les classes de dhp)
+   \item hd: hauteur dominante, hauteur moyenne des 100 plus gros arbres à l'ha (m)
+   \item nfi, nft, nri, nrt, nsab : nombre d'arbres de plus de 9 cm du groupe d'essences à l'hectare (nb/ha), mettre 0 si absent.
+   \item stfi, stft, stri, strt, stsab: surface terrière marchande du groupe d'essences (m2/ha), mettre 0 si absent.
+   \item vfi, vft, vri, vrt, vsab: volume marchand brut du groupe d'essences (m3/ha), mettre 0 si absent. Si aucun volume, mettre les 5 groupes à 0 et l'évolution du volume ne sera pas effectué.
+}}
+
 \item{file_export}{Nom du fichier à exporter contenant les résultats de la simulation (format csv), optionnel.}
 
 \item{horizon}{Nombre de décennies à simuler, un chiffre de 1 à 15}
