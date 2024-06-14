@@ -1,7 +1,7 @@
 Package: RNatura2014
 Type: Package
 Title: Forest growth simulator Natura-2014
-Version: 2.0.1
+Version: 2.1.0
 Authors@R: c(
     person("Isabelle", "Auger", email = "isabelle.auger@mrnf.gouv.qc.ca", role = c("aut", "cre")),
     person("Mathieu", "Fortin", email = "mathieu.fortin@nrcan-rncan.gc.ca", role = c("ctb")))
@@ -20,9 +20,11 @@ Depends:
 Imports:
     readxl (>= 1.4.3),
     readr (>= 2.1.5),
-		TarifQC (>= 1.1.6)
+		TarifQC (>= 1.1.6),
+		ExtractMap (>= 1.1.2)
 Remotes:
     Modelisation-DRF/TarifQC
+    Modelisation-DRF/ExtractMap
 Suggests: 
     testthat (>= 3.0.0)
 RoxygenNote: 7.3.1
