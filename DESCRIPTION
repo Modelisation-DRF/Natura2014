@@ -20,10 +20,10 @@ Depends:
 Imports:
     readxl (>= 1.4.3),
     readr (>= 2.1.5),
-		TarifQC (>= 1.1.6),
-		ExtractMap (>= 1.1.2)
+    TarifQC (>= 1.1.6),
+    ExtractMap (>= 1.1.2)
 Remotes:
-    Modelisation-DRF/TarifQC
+    Modelisation-DRF/TarifQC,
     Modelisation-DRF/ExtractMap
 Suggests: 
     testthat (>= 3.0.0)
