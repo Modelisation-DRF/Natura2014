@@ -7,15 +7,15 @@
 #' @return Une chaine de caractères contant "ok" s'il n'y a pas d'erreur, sinon, contient un message d'erreur.
 #' @export
 #'
-CheckArguments <- function(file_arbre, file_etude, file_compile, horizon, dec_perturb, dec_tbe1, tbe1, dec_tbe2, tbe2, ht, vol) {
+CheckArguments <- function(file_arbre, file_etude, file_compile, horizon, dec_perturb, dec_tbe1, tbe1, dec_tbe2, tbe2, ht, vol, climat) {
 
   # on ne doit pas spécifier les 3 fichiers en même temps
   if (missing(file_arbre) & missing(file_etude) & missing(file_compile)) {
-    erreur <- "Au moins un des deux: file_arbre+file_etude OU file_compile doit etre specifie"
+    erreur <- "Au moins un des deux file_arbre et file_etude OU file_compile doit etre specifie"
   }
   # Si on spécifie le fichier compilé, les 2 autres fichiers doivent être vides
   else if ((!missing(file_arbre)  | !missing(file_etude)) & !missing(file_compile)){
-    erreur <- "Seulement un des deux: file_arbre+file_etude OU file_compile doit etre specifie"
+    erreur <- "Seulement un des deux file_arbre et file_etude OU file_compile doit etre specifie"
   }
   # Si on ne spécifie pas de fichier compilé, il faut spécifier les 2 autres
   else if ((missing(file_arbre)  | missing(file_etude)) & missing(file_compile)){
@@ -73,9 +73,13 @@ CheckArguments <- function(file_arbre, file_etude, file_compile, horizon, dec_pe
   else if (!ht %in% c(TRUE, FALSE)) {
     erreur <- c("ht doit etre TRUE ou FALSE")
   }
-  # l'argument du calcul deu volume doit être binaire
+  # l'argument du calcul de volume doit être binaire
   else if (!vol %in% c(TRUE, FALSE)) {
     erreur <- c("vol doit etre TRUE ou FALSE")
+  }
+  # l'argument du calcul ddu climat doit être binaire
+  else if (!climat %in% c(TRUE, FALSE)) {
+    erreur <- c("climat doit etre TRUE ou FALSE")
   }
   else erreur <- c("ok")
 

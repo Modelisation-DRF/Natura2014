@@ -7,7 +7,7 @@
 #' @return Table dont les arbres ont été filtrés ou un message d'erreur s'il y a une erreur dans le nom des colonnes.
 #' @export
 #'
-Lecture_arbres <- function(file_arbre, ht, vol){
+Lecture_arbres <- function(file_arbre, ht, vol, climat){
 
 
   #file_arbre=file_arbre
@@ -29,13 +29,14 @@ names(arbres) <- tolower(names(arbres))
 
 nom <- names(arbres)
 
-nom_clim <- c("p_tot","t_ma")
 nom_arbre <- c("essence","dhpcm","etat", "tige_ha")
 nom_plot <- c("placette","type_eco","altitude","sdom_bio")
 nom_vol <- c("vol_dm3")
 nom_ht <- c("hauteur_pred")
+nom_coord <- c("latitude", "longitude")
+nom_clim <- c("p_tot","t_ma")
 
-nom_base <- c(nom_plot, nom_arbre, nom_clim)
+nom_base <- c(nom_plot, nom_arbre)
 
 
 
@@ -46,10 +47,8 @@ nom_base <- c(nom_plot, nom_arbre, nom_clim)
 #names(nom) <- "nom"
 
 
-# vérification des noms de variables de base si ht et vol doivent etre calculés
-if (isTRUE(ht) & isTRUE(vol)) {
-  if (length(setdiff(nom_base, nom)) >0) {arbres = paste0("Nom des variables incorrect dans le fichier des arbres")}
-}
+# vérification des noms de variables de base
+if (length(setdiff(nom_base, nom)) >0) {arbres = paste0("Nom des variables de base incorrect dans le fichier des arbres")}
 else{
 
   # vérification de la ht si elle est fournie dans le fichier d'inventaire
@@ -59,6 +58,14 @@ else{
   # vérification du volume s'il est fourni dans le fichier d'inventaire
   if (isFALSE(vol)) {
     if (length(setdiff(nom_vol, nom)) >0) {arbres = paste0("Nom de la variable du volume incorrect dans le fichier des arbres")}
+  }
+  # verification si climat fourni
+  if (isFALSE(climat)) {
+    if (length(setdiff(nom_clim, nom)) >0) {arbres = paste0("Nom des variables climatiques incorrect dans le fichier des arbres")}
+  }
+  # verification si climat non fourni
+  if (isTRUE(climat)) {
+    if (length(setdiff(nom_coord, nom)) >0) {arbres = paste0("Nom des variables de coordonnees incorrect dans le fichier des arbres")}
   }
 }
 

@@ -2,7 +2,7 @@
 
 
 ##############################################
-# Fichiers à l'échelle de l'arbre
+# Fichiers à l'échelle de l'arbre avec climat
 fichier_arbres <- read_delim(file="data-raw/fichier_arbres.csv", delim = ';')
 fichier_arbres_etudes <- read_delim(file="data-raw/fichier_arbres_etudes.csv", delim = ';')
 
@@ -19,6 +19,16 @@ fichier_arbres_etudes <- fichier_arbres_etudes %>%
 
 # sauvegarder le fichier en rda sous /data
 usethis::use_data(fichier_arbres, fichier_arbres_etudes, overwrite = TRUE)
+
+# Fichiers à l'échelle de l'arbre sans climat
+fichier_arbres <- read_delim(file="data-raw/fichier_arbres.csv", delim = ';')
+# names(fichier_arbres)
+fichier_arbres_sans_climat <- fichier_arbres %>%
+  mutate(sdom_bio=ifelse(SDOM_BIO==4, '4EST', '5EST')) %>%
+  dplyr::select(ID_PE, LATITUDE, LONGITUDE, essence, dhpcm, ETAT, TIGE_HA, sdom_bio, REG_ECO, type_eco, ALTITUDE) %>%
+  rename(placette=ID_PE)
+
+usethis::use_data(fichier_arbres_sans_climat, overwrite = TRUE)
 
 
 

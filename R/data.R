@@ -1,4 +1,4 @@
-#' Fichier d'intrant à l'échelle de l'arbre pour Natura-2014
+#' Fichier d'intrant à l'échelle de l'arbre pour Natura-2014, incluant le climat
 #'
 #' Deux placettes avec leur liste d'arbres
 #'
@@ -20,6 +20,30 @@
 #' @examples
 #' fichier_arbres
 "fichier_arbres"
+
+#' Fichier d'intrant à l'échelle de l'arbre pour Natura-2014, sans lew climat
+#'
+#' Deux placettes avec leur liste d'arbres
+#'
+#' @format ## `fichier_arbres_sans_climat`
+#' Table de 29 lignes et 11 colonnes:
+#' \describe{
+#'   \item{placette}{Identifiant de la placette}
+#'   \item{LATITUDE}{Latitude de la placette}
+#'   \item{LONGITUDE}{Longitude de la placette}
+#'   \item{essence}{Code de l'essence de l'arbre}
+#'   \item{dhpcm}{Classe de DHP (cm)}
+#'   \item{ETAT}{Code d'état de l'arbre}
+#'   \item{TIGE_HA}{Nombre de tiges dans la classe de DHP et de l'essence, à l'hectare}
+#'   \item{sdom_bio}{Code du sous-domaine bioclimatique}
+#'   \item{REG_ECO}{Code de la région écologique}
+#'   \item{type_eco}{Code du type écologique}
+#'   \item{ALTITUDE}{Altitude (m)}
+
+#' }
+#' @examples
+#' fichier_arbres_sans_climat
+"fichier_arbres_sans_climat"
 
 
 

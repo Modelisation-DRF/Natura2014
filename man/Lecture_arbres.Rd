@@ -4,7 +4,7 @@
 \alias{Lecture_arbres}
 \title{Lire le fichier des arbres à simuler avec Natura et valider le nom des colonnes}
 \usage{
-Lecture_arbres(file_arbre, ht, vol)
+Lecture_arbres(file_arbre, ht, vol, climat)
 }
 \arguments{
 \item{file_arbre}{Nom du fichier contenant les informations sur les arbres et les placettes (table, csv ou xlsx). Le fichier doit contenir une ligne par arbre ou par classe de dhp/essence.
@@ -14,14 +14,15 @@ Si ce paramètre n'est pas utilisé, \code{file_compile} doit l'être. Le nom de
    \item sdom_bio: code du sous-domaine bioclimatique, en majuscule (ex: 2EST, 4OUEST ou 2E, 4O)
    \item altitude: altitude (m)
    \item type_eco: code du type écologique (ex: MS22)
-   \item p_tot: précipitation totale annuelle, moyenne sur la période 1980-2010 (mm)
-   \item t_ma: température moyenne annuelle sur la période 1980-2010 (Celcius)
+   \item p_tot: précipitation totale annuelle, moyenne sur la période 1980-2010 (mm). Optionnel: si non fourni, mettre \code{climat=T}.
+   \item t_ma: température moyenne annuelle sur la période 1980-2010 (Celcius). Optionnel: si non fourni, mettre \code{climat=T}.
    \item essence: code de l'essence de l'arbre (ex: SAB, EPN, BOP)
    \item dhpcm: dhp (cm) de l'arbre ou classe de dhp (seuls les arbres de plus de 9 cm sont retenus)
    \item tige_ha: nombre d'arbres de l'essence et de la classe de dhp, à l'hectare
    \item etat: code d'état de l'arbre, seuls les vivants sont retenus, codes 10, 12, 30, 32, 40, 42, 50, 52
    \item hauteur_pred: optionnel. hauteur totale de l'arbre (m). Si non fourni, la hauteur sera estimé à partir de la relation hauteur-diamètre de Auger (2016)
    \item vol_dm3: optionnel. volume marchand de l'arbre ou d'un arbre dans la classe de dhp (dm3). Si non fourni, le volume sera estimé à partir du tarif de cubage de Fortin et al. (2007)
+   \item latitude, longitude: coordonnées des placettes, en degré décimal. Optionel: nécessaires si \code{climat=T}
  }}
 
 \item{ht}{Booléen
@@ -34,6 +35,12 @@ Si ce paramètre n'est pas utilisé, \code{file_compile} doit l'être. Le nom de
 \itemize{
   \item \code{TRUE} (par défaut): le volume de chacun des arbres doit être estimé
   \item \code{FALSE}: la variable vol_dm3 est fournie dans le fichier \code{file_arbre} (en dm3 par tige), si le volume est fourni, la hauteur ne sera pas estimée.
+}}
+
+\item{climat}{Booléen
+\itemize{
+  \item \code{TRUE} (par défaut): si les variables climatiques doivent être extraites des cartes. Les colonnes latitude et longitude de la placette doivent alors être fournies dans \code{file_arbre} ou dans \code{file_compile}.
+  \item \code{FALSE}: si les variables climatiques sont fournies dans le fichier \code{file_arbre} ou \code{file_compile}. p_tot et t_ma ne doivent pas être dans le fichier.
 }}
 }
 \value{

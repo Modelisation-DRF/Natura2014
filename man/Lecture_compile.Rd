@@ -4,10 +4,32 @@
 \alias{Lecture_compile}
 \title{Lire le fichier des placettes à simuler avec Natura et valider le nom des colonnes}
 \usage{
-Lecture_compile(file_compile)
+Lecture_compile(file_compile, climat)
 }
 \arguments{
-\item{file_compile}{Nom du fichier des placette à lire (table ou Excel)}
+\item{file_compile}{Optionnel. Nom du fichier contenant les caractéristiques dendrométriques des placettes (table, csv ou xlsx). Une ligne par placette.
+ Si ce paramètre n'est pas utilisé, \code{file_arbre} et \code{file_etude} doivent l'être. Le nom des colonnes doit être:
+ \itemize{
+   \item placette: identifiant unique de la placette
+   \item sdom_bio: code du sous-domaine bioclimatique, en majuscule (ex: 2EST, 4OUEST ou 2E, 4O)
+   \item altitude: altitude (m)
+   \item type_eco: code du type écologique (ex: MS22)
+   \item p_tot: précipitation totale annuelle, moyenne sur la période 1980-2010 (mm). Optionnel: si non fourni, mettre \code{climat=T}.
+   \item t_ma: température moyenne annuelle sur la période 1980-2010 (Celcius). Optionnel: si non fourni, mettre \code{climat=T}.
+   \item age: âge du peuplement (années)
+   \item is: indice de structure diamétrale de Shannon (valeur entre 0 et 1; 0 : toutes les tiges sont dans la même classe de dhp; 1 : les tiges sont également distribuées dans les classes de dhp)
+   \item hd: hauteur dominante, hauteur moyenne des 100 plus gros arbres à l'ha (m)
+   \item nfi, nft, nri, nrt, nsab : nombre d'arbres de plus de 9 cm du groupe d'essences à l'hectare (nb/ha), mettre 0 si absent.
+   \item stfi, stft, stri, strt, stsab: surface terrière marchande du groupe d'essences (m2/ha), mettre 0 si absent.
+   \item vfi, vft, vri, vrt, vsab: volume marchand brut du groupe d'essences (m3/ha), mettre 0 si absent. Si aucun volume, mettre les 5 groupes à 0 et l'évolution du volume ne sera pas effectué.
+   \item latitude, longitude: coordonnées des placettes, en degré décimal. Optionel: nécessaires si \code{climat=T}
+}}
+
+\item{climat}{Booléen
+\itemize{
+  \item \code{TRUE} (par défaut): si les variables climatiques doivent être extraites des cartes. Les colonnes latitude et longitude de la placette doivent alors être fournies dans \code{file_arbre} ou dans \code{file_compile}.
+  \item \code{FALSE}: si les variables climatiques sont fournies dans le fichier \code{file_arbre} ou \code{file_compile}. p_tot et t_ma ne doivent pas être dans le fichier.
+}}
 }
 \value{
 Table à l'échelle de la placette ou un message d'erreur s'il y a une erreur dans le nom des colonnes.
