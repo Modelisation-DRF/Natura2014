@@ -24,13 +24,22 @@ Lecture_etudes <- function(file_etude){
   # liste des variables dans le fichier, ne garder que celles attendues et le compter
   nom <- names(etudes)
 
-  nom_base <- c("placette", "essence", "etage", "dhpcm", "hauteur", "age")
+  #nom_base <- c("placette", "essence", "etage", "dhpcm", "hauteur", "age")
+  nom_base <- as.matrix(nom_variables[nom_variables$categorie=="etude","variable"])
 
 
   # setdiff : Find Elements that Exist Only in First, But Not in Second Vector
+  difference_nom_etude <- setdiff(nom_base, nom)
 
   # vérification des noms de variables de base
-  if (length(setdiff(nom_base, nom)) >0) {etudes = paste0("Nom des variables incorrect dans le fichier des arbres-etudes")}
+  #if (length(setdiff(nom_base, nom)) >0) {etudes = paste0("Nom des variables incorrect dans le fichier des arbres-etudes")}
+  if (length(difference_nom_etude) >0) {etudes = paste0("Nom des variables incorrect dans le fichier des arbres-études. Les variables suivantes sont requises : ",
+                                                        paste(difference_nom_etude, collapse = ', '))
+  }else if(!any(etudes$etage %in% c("C", "D"))){
+
+    etudes = paste0("Aucun arbre avec l'étage C ou D " )
+  }
+
 
   return(etudes)
 }

@@ -6,7 +6,7 @@ test_that("La fonction principale SimulNatura() donne les mêmes résultats que 
 
 
   data_simul <- SimulNatura(file_arbre=data_arbre, file_etude=data_etude, horizon=4, climat=F) # 10 obs 37 var.
-  data_simul2 <- data_simul %>% dplyr::select(-sdom_bio, -ptot, -tmoy, -altitude, -type_eco) # 10 obs 32 var.
+  data_simul2 <- data_simul %>% dplyr::select(-sdom_bio, -ptot, -tmoy, -type_eco) # 10 obs 32 var.
 
 
   # comparer la step 0
@@ -135,7 +135,7 @@ test_that("La fonction principale SimulNatura() donne les mêmes résultats que 
 
 
   data_simul <- SimulNatura(file_compile=data_compile, horizon=4, climat=F) # 10 obs 37 var.
-  data_simul2 <- data_simul %>% dplyr::select(-sdom_bio, -ptot, -tmoy, -altitude, -type_eco) # 10 obs 32 var.
+  data_simul2 <- data_simul %>% dplyr::select(-sdom_bio, -ptot, -tmoy, -type_eco) # 10 obs 32 var.
 
   result_simule <- as.matrix(data_simul2 %>%   ungroup() %>%
                                dplyr::select(age, hd, is,
@@ -216,7 +216,7 @@ test_that("La fonction principale SimulNatura() retourne un message d'erreur si 
 
   data_arbre <- data.frame(placette=1, essence="ERS", dhp=12)
   data_etude <- readRDS(test_path("fixtures", "fic_etude_ex.rds"))
-  expect_error(SimulNatura(file_arbre = data_arbre, file_etude = data_etude, horizon=4, climat=F),"Nom des variables de base incorrect dans le fichier des arbres")
+  expect_error(SimulNatura(file_arbre = data_arbre, file_etude = data_etude, horizon=4, climat=F),"Les variables suivantes sont requises dans le fichier des arbres : type_eco, sdom_bio, dhpcm, tige_ha, etat")
 
 })
 
@@ -224,14 +224,14 @@ test_that("La fonction principale SimulNatura() retourne un message d'erreur si 
 
   data_arbre <- readRDS(test_path("fixtures", "fic_arbre_ex.rds"))
   data_etude <- data.frame(placette=1, essence='SAB', etage='D', dhp=10, hauteur=13, age=40)
-  expect_error(SimulNatura(file_arbre = data_arbre, file_etude = data_etude, horizon=4, climat=F),"Nom des variables incorrect dans le fichier des arbres" )
+  expect_error(SimulNatura(file_arbre = data_arbre, file_etude = data_etude, horizon=4, climat=F),"Nom des variables incorrect dans le fichier des arbres-études. Les variables suivantes sont requises : dhpcm" )
 
 })
 
 test_that("La fonction principale SimulNatura() retourne un message d'erreur si pas les bons noms de colonnes dans le fichier file_compile", {
 
   data_compile <- data.frame(placette=1)
-  expect_error(SimulNatura(file_compile = data_compile, horizon=4,climat=F),"Nom des variables de base incorrect dans le fichier file_compile" )
+  expect_error(SimulNatura(file_compile = data_compile, horizon=4,climat=F),"Les variables suivantes sont requises dans le fichier d'inventaire compile : type_eco, sdom_bio, nfi, nft, nsab, nri, nrt, stfi, stft, stsab, stri, strt, vfi, vft, vsab, vri, vrt, hd, is, age" )
 
 })
 

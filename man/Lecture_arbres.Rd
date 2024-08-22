@@ -12,7 +12,7 @@ Si ce paramètre n'est pas utilisé, \code{file_compile} doit l'être. Le nom de
  \itemize{
    \item placette: identifiant unique de la placette
    \item sdom_bio: code du sous-domaine bioclimatique, en majuscule (ex: 2EST, 4OUEST ou 2E, 4O)
-   \item altitude: altitude (m)
+   \item altitude: altitude (m), optionnel : nécessaire si \code{climat=T}
    \item type_eco: code du type écologique (ex: MS22)
    \item p_tot: précipitation totale annuelle, moyenne sur la période 1980-2010 (mm). Optionnel: si non fourni, mettre \code{climat=T}.
    \item t_ma: température moyenne annuelle sur la période 1980-2010 (Celcius). Optionnel: si non fourni, mettre \code{climat=T}.
@@ -40,7 +40,7 @@ Si ce paramètre n'est pas utilisé, \code{file_compile} doit l'être. Le nom de
 \item{climat}{Booléen
 \itemize{
   \item \code{TRUE} (par défaut): si les variables climatiques doivent être extraites des cartes. Les colonnes latitude et longitude de la placette doivent alors être fournies dans \code{file_arbre} ou dans \code{file_compile}.
-  \item \code{FALSE}: si les variables climatiques sont fournies dans le fichier \code{file_arbre} ou \code{file_compile}. p_tot et t_ma ne doivent pas être dans le fichier.
+  \item \code{FALSE}: si les variables climatiques sont fournies dans le fichier \code{file_arbre} ou \code{file_compile}.
 }}
 }
 \value{

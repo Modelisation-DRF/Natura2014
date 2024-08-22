@@ -459,7 +459,7 @@ Natura <- function(data, horizon, dec_perturb=0, dec_tbe1=0, tbe1=0, dec_tbe2=0,
            Warning)
   # ajouter les info placette
   outputFinal2  <- data %>%
-    dplyr::select(placette, sdom_bio, altitude, ptot, tmoy, type_eco) %>%
+    dplyr::select(placette, sdom_bio, ptot, tmoy, type_eco) %>%
     inner_join(outputFinal, by='placette')
 
 

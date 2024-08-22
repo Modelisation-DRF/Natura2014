@@ -25,9 +25,28 @@ names(espece) <- tolower(names(espece))
 ########################################################################################
 
 # lire le fichier des veg_pot retenues
-vp <- read_delim("data-raw/Vegpot.csv", delim = ';') %>%
+vp_retenues <- read_delim("data-raw/Vegpot.csv", delim = ';') %>%
     select(VegPotName) %>%
     rename(veg_pot=VegPotName)
+vp_retenues <- as.matrix(vp_retenues)
+
+########################################################################################
+
+
+# fichier des maximum de n et st en évolution pour ne pas déraper
+n_st_max <- read_excel("data-raw\\N_ST_max.xlsx")
+
+
+########################################################################################
+
+# fichier des valeurs admissibles de fichiers d'intrant
+fic_validation <- read_excel("data-raw\\Validation_intrants.xlsx")
+
+
+########################################################################################
+
+# fichier des noms de variables des fichiers d'intrant
+nom_variables <- read_delim("data-raw\\nom_variables.csv",delim = ';')
 
 
 ########################################################################################
@@ -81,7 +100,7 @@ ParmsMoy<-read.sas7bdat("data-raw/moyenne_20140424.sas7bdat") %>% mutate(sdom_bi
 ########################################################################################
 
 # tous les fichier à mettre dans le rda
-usethis::use_data(espece, vp,
+usethis::use_data(espece, vp_retenues, n_st_max, nom_variables, fic_validation,
                   b2, ParmsMoy,
                   ParmsFi, ParmsFt, ParmsRi, ParmsRt, ParmsSab,
                   ParmsIsd, ParmsHd,
