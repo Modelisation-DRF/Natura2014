@@ -7,16 +7,6 @@
 #' @return Un data frame avec les colonnes spécifiées supprimées si elles existent.
 #' @export
 #'
-#' @examples
-#'
-#' # Liste des colonnes à supprimer
-#' variable_climat <- c("p_tot", "t_ma")
-#'
-#' # Appliquer la fonction pour supprimer les colonnes spécifiées
-#' data <- remove_columns(data, columns_to_remove)
-#'
-#'
-
 
 remove_columns <- function(data, columns_to_remove) {
 
@@ -28,7 +18,6 @@ remove_columns <- function(data, columns_to_remove) {
 
   return(data)
 }
-
 
 
 
@@ -56,18 +45,18 @@ valide_placette_etudes <-function (data_arbre , data_etude){
 
   erreurs <-list()
 
-  if(!"id_pe" %in% names(data_arbre) ||!"id_pe" %in% names(data_etude) ){
+  if(!"placette" %in% names(data_arbre) ||!"placette" %in% names(data_etude) ){
     erreurs<-paste("La colonne 'Placette' est manquante dans le fichier etude ou dans le fichier des arbres.")
 
     return(erreurs)
-  }else  if(length(data_arbre$id_pe) == 0|| length(data_etude$id_pe) == 0){
+  }else  if(length(data_arbre$placette) == 0|| length(data_etude$placette) == 0){
     erreurs<-paste("La colonne 'Placette' est vide dans le fichier etude ou dans le fichier des arbres.")
     return(erreurs)
   }
 
 
-  pacette_arbre <- unique(data_arbre$id_pe)
-  placette_etude <- unique(data_etude$id_pe)
+  pacette_arbre <- unique(data_arbre$placette)
+  placette_etude <- unique(data_etude$placette)
 
   diff_placette <- setdiff(pacette_arbre, placette_etude)
 

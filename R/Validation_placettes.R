@@ -10,7 +10,7 @@
 # #' @export
 #'
 # @examples
-valid_placette <- function(type_fic, fichier, ht=NULL, iqs=NULL, climat=NULL, sol=NULL){
+valid_placette <- function(type_fic, fichier, ht=NULL, climat=NULL){
 
   # type_fic = 'arbres'
 

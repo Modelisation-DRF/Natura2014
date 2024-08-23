@@ -4,14 +4,7 @@
 \alias{valid_placette}
 \title{Vérifier le contenu des variables des fichier d'entrée}
 \usage{
-valid_placette(
-  type_fic,
-  fichier,
-  ht = NULL,
-  iqs = NULL,
-  climat = NULL,
-  sol = NULL
-)
+valid_placette(type_fic, fichier, ht = NULL, climat = NULL)
 }
 \arguments{
 \item{type_fic}{Type du fichier à vérifier: arbres ou compil ou valid}

@@ -17,13 +17,3 @@ Un data frame avec les colonnes spécifiées supprimées si elles existent.
 \description{
 Cette fonction supprime les colonnes spécifiées d'un data frame si elles existent.
 }
-\examples{
-
-# Liste des colonnes à supprimer
-variable_climat <- c("p_tot", "t_ma")
-
-# Appliquer la fonction pour supprimer les colonnes spécifiées
-data <- remove_columns(data, columns_to_remove)
-
-
-}
