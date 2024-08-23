@@ -33,11 +33,11 @@ Lecture_etudes <- function(file_etude){
 
   # vérification des noms de variables de base
   #if (length(setdiff(nom_base, nom)) >0) {etudes = paste0("Nom des variables incorrect dans le fichier des arbres-etudes")}
-  if (length(difference_nom_etude) >0) {etudes = paste0("Nom des variables incorrect dans le fichier des arbres-études. Les variables suivantes sont requises : ",
+  if (length(difference_nom_etude) >0) {etudes = paste0("Nom des variables incorrect dans le fichier des arbres-etudes. Les variables suivantes sont requises : ",
                                                         paste(difference_nom_etude, collapse = ', '))
   }else if(!any(etudes$etage %in% c("C", "D"))){
 
-    etudes = paste0("Aucun arbre avec l'étage C ou D " )
+    etudes = paste0("Aucun arbre avec l'etage C ou D " )
   }
 
 

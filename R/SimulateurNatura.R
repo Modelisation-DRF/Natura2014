@@ -110,11 +110,13 @@
 #' @examples
 #' \dontrun{
 #' # Simulation sur 50 ans à partir d'un fichier à l'échelle de l'arbre
-#' data_simul <- SimulNatura(file_arbre=fichier_arbres, file_etude=fichier_arbres_etudes, horizon=5, climat=F)
+#' data_simul <- SimulNatura(file_arbre=fichier_arbres, file_etude=fichier_arbres_etudes,
+#'  horizon=5, climat=F)
 #'
 #' # Simulation sur 50 ans à partir d'un fichier à l'échelle de l'arbre,
 #' # qui ne contient pas les variables climatiques
-#' data_simul <- SimulNatura(file_arbre=fichier_arbres_sans_climat, file_etude=fichier_arbres_etudes, horizon=5)
+#' data_simul <- SimulNatura(file_arbre=fichier_arbres_sans_climat,
+#' file_etude=fichier_arbres_etudes, horizon=5)
 #'
 #' # Simulation sur 50 ans à partir d'un fichier à l'échelle de la placette
 #' data_simul <- SimulNatura(file_compile=fichier_compile, horizon=5, climat=F)
@@ -217,7 +219,7 @@ SimulNatura <- function(file_arbre, file_etude, file_compile, file_export, horiz
     Arbres <- Arbres[Arbres$placette %in% liste_place_etude,]
 
     # Vérifier s'il reste des placettes valides
-    if (nrow(Arbres)==0) {stop("Aucune placette valide dans le fichier des arbres-études")}
+    if (nrow(Arbres)==0) {stop("Aucune placette valide dans le fichier des arbres-etudes")}
 
 
     # extraire les variables de climat pour le modèle de hauteur si nécessaire

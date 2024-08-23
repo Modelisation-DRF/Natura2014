@@ -93,7 +93,7 @@ if (length(difference) >0){
   # vérification des noms de variables si climat sont à extraire : il faut lat-long-an_mes
   if (isTRUE(climat)) {
     difference_nom_coor_nom <- setdiff(nom_coor, nom)
-    if (length(difference_nom_coor_nom) >0) {arbres = paste0("Coordonnées des placettes manquantes pour extraire le climat. Les variables suivantes sont requises : ", paste(difference_nom_coor_nom, collapse = ', '))}
+    if (length(difference_nom_coor_nom) >0) {arbres = paste0("Coordonnees des placettes manquantes pour extraire le climat. Les variables suivantes sont requises : ", paste(difference_nom_coor_nom, collapse = ', '))}
   }
 
    # vérification de la ht si elle est fournie dans le fichier d'inventaire

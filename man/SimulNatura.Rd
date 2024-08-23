@@ -145,11 +145,13 @@ Pour plus de détails sur le simulateur Natura-2014, voir la note de recherche f
 \examples{
 \dontrun{
 # Simulation sur 50 ans à partir d'un fichier à l'échelle de l'arbre
-data_simul <- SimulNatura(file_arbre=fichier_arbres, file_etude=fichier_arbres_etudes, horizon=5, climat=F)
+data_simul <- SimulNatura(file_arbre=fichier_arbres, file_etude=fichier_arbres_etudes,
+ horizon=5, climat=F)
 
 # Simulation sur 50 ans à partir d'un fichier à l'échelle de l'arbre,
 # qui ne contient pas les variables climatiques
-data_simul <- SimulNatura(file_arbre=fichier_arbres_sans_climat, file_etude=fichier_arbres_etudes, horizon=5)
+data_simul <- SimulNatura(file_arbre=fichier_arbres_sans_climat,
+file_etude=fichier_arbres_etudes, horizon=5)
 
 # Simulation sur 50 ans à partir d'un fichier à l'échelle de la placette
 data_simul <- SimulNatura(file_compile=fichier_compile, horizon=5, climat=F)

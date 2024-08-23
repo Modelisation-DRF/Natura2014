@@ -224,7 +224,7 @@ test_that("La fonction principale SimulNatura() retourne un message d'erreur si 
 
   data_arbre <- readRDS(test_path("fixtures", "fic_arbre_ex.rds"))
   data_etude <- data.frame(placette=1, essence='SAB', etage='D', dhp=10, hauteur=13, age=40)
-  expect_error(SimulNatura(file_arbre = data_arbre, file_etude = data_etude, horizon=4, climat=F),"Nom des variables incorrect dans le fichier des arbres-études. Les variables suivantes sont requises : dhpcm" )
+  expect_error(SimulNatura(file_arbre = data_arbre, file_etude = data_etude, horizon=4, climat=F),"Nom des variables incorrect dans le fichier des arbres-etudes. Les variables suivantes sont requises : dhpcm" )
 
 })
 

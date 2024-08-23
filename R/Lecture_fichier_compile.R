@@ -56,7 +56,7 @@ Lecture_compile <- function(file_compile, climat){
     if (isTRUE(climat)) {
       difference_nom_coor_climat <- setdiff(nom_coor, nom)
 
-      if (length(difference_nom_coor_climat) >0) {comp = paste0("Coordonnées des placettes manquantes pour extraire le climat. Les variables suivantes sont requises : ",
+      if (length(difference_nom_coor_climat) >0) {comp = paste0("Coordonnees des placettes manquantes pour extraire le climat. Les variables suivantes sont requises : ",
                                                                 paste(difference_nom_coor_climat, collapse = ', '))}
     }
 
@@ -65,7 +65,7 @@ Lecture_compile <- function(file_compile, climat){
 
       difference_nom_clim <- setdiff(nom_clim, nom)
 
-      if (length(difference_nom_clim) >0) {comp = paste0("Nom des variables climatiques annuelles incorrect dans le fichier d'inventaire compilé. Les variables suivantes sont requises : ",
+      if (length(difference_nom_clim) >0) {comp = paste0("Nom des variables climatiques incorrect dans le fichier d'inventaire compile. Les variables suivantes sont requises : ",
                                                          paste(difference_nom_clim, collapse = ', '))}
     }
 
