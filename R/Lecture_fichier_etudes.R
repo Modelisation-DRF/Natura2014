@@ -7,16 +7,19 @@
 #' @return Table dont les arbres-études ont été filtrés ou un message d'erreur s'il y a une erreur dans le nom des colonnes.
 #' @export
 #'
-Lecture_etudes <- function(file_etude){
-
+Lecture_etudes <- function(file_etude) {
   # lire le fichier des arbres-etudes
   if (!is.data.frame(file_etude)) {
     suppressMessages(
-      if (grepl(".xls", file_etude)) {etudes <- readxl::read_excel(file_etude)}
-      else if (grepl(".csv", file_etude)) {etudes <- readr::read_delim(file_etude, delim = ";")} # fread met ID_PE numérique, mais pas read_delim
+      if (grepl(".xls", file_etude)) {
+        etudes <- readxl::read_excel(file_etude)
+      } else if (grepl(".csv", file_etude)) {
+        etudes <- readr::read_delim(file_etude, delim = ";")
+      } # fread met ID_PE numérique, mais pas read_delim
     )
+  } else {
+    etudes <- file_etude
   }
-  else etudes <- file_etude
   names(etudes) <- tolower(names(etudes))
 
   # vérification des variables obligatoires: placette, etage, essence, dhpcm, hauteur, age
@@ -30,7 +33,11 @@ Lecture_etudes <- function(file_etude){
   # setdiff : Find Elements that Exist Only in First, But Not in Second Vector
 
   # vérification des noms de variables de base
-  if (length(setdiff(nom_base, nom)) >0) {etudes = paste0("Nom des variables incorrect dans le fichier des arbres-etudes")}
+  nom_base_manquant <- setdiff(nom_base, nom)
+
+  if (length(nom_base_manquant) > 0) {
+    etudes <- paste("Nom des variables incorrect dans le fichier des arbres-etudes: ", paste(nom_base_manquant, collapse = ", "))
+  }
 
   return(etudes)
 }
