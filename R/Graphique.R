@@ -24,7 +24,7 @@
 #' @param Variable Une chaine de caracteres specifiant la variable a tracer.
 #' Les valeurs possibles incluent
 #'  "st" (surface terriere marchande en m2/ha),
-#'  "n" (nombre d’arbres marchands par ha), "
+#'  "n" (nombre d'arbres marchands par ha), "
 #'  v" (volume marchand en m3/ha),
 #'  "hd" (hauteur dominante en m),
 #'  "dq" (diametre quadratique moyen en cm).
@@ -45,7 +45,7 @@ generer_graphique <- function(Data, Espece = "tot", Variable = "st", listePlacet
       Etiquette <- "Surface terriere marchande (m2/ha)"
     },
     "n" = {
-      Etiquette <- "Nombre d’arbres marchands par ha"
+      Etiquette <- "Nombre d'arbres marchands par ha"
     },
     "v" = {
       Etiquette <- "Volume marchand (m3/ha)"
