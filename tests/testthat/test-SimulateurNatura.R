@@ -1,12 +1,12 @@
-test_that("La fonction principale SimulNatura() donne les mêmes résultats que Capsis sur 40 ans pour toutes les variables simulées, sans TBE ni PERTURB, avec un fichier d'entrée à l'échelle de l'arbre, avec climat fourni", {
+test_that("La fonction principale SimulNatura2014() donne les mêmes résultats que Capsis sur 40 ans pour toutes les variables simulées, sans TBE ni PERTURB, avec un fichier d'entrée à l'échelle de l'arbre, avec climat fourni", {
 
   data_arbre <- readRDS(test_path("fixtures", "fic_arbre_ex.rds"))
   data_etude <- readRDS(test_path("fixtures", "fic_etude_ex.rds"))
   resul_attendu <- readRDS(test_path("fixtures", "fic_capsis_50ans.rds")) # 10 obs 32 var.
 
 
-  data_simul <- SimulNatura(file_arbre=data_arbre, file_etude=data_etude, horizon=4, climat=F) # 10 obs 37 var.
-  data_simul2 <- data_simul %>% dplyr::select(-sdom_bio, -ptot, -tmoy, -altitude, -type_eco) # 10 obs 32 var.
+  data_simul <- SimulNatura2014(file_arbre=data_arbre, file_etude=data_etude, horizon=4, climat=F) # 10 obs 37 var.
+  data_simul2 <- data_simul %>% dplyr::select(-sdom_bio, -ptot, -tmoy, -type_eco) # 10 obs 32 var.
 
 
   # comparer la step 0
@@ -128,14 +128,14 @@ test_that("La fonction principale SimulNatura() donne les mêmes résultats que 
 
 
 
-test_that("La fonction principale SimulNatura() donne les mêmes résultats que Capsis sur 40 ans pour toutes les variables simulées, sans TBE ni PERTURB, avec un fichier d'entrée à l'échelle de la placette, avec climat fourni", {
+test_that("La fonction principale SimulNatura2014() donne les mêmes résultats que Capsis sur 40 ans pour toutes les variables simulées, sans TBE ni PERTURB, avec un fichier d'entrée à l'échelle de la placette, avec climat fourni", {
 
   data_compile <- readRDS(test_path("fixtures", "fic_compil_ex.rds"))
   resul_attendu <- readRDS(test_path("fixtures", "fic_capsis_compile_40ans.rds")) # 10 obs 32 var.
 
 
-  data_simul <- SimulNatura(file_compile=data_compile, horizon=4, climat=F) # 10 obs 37 var.
-  data_simul2 <- data_simul %>% dplyr::select(-sdom_bio, -ptot, -tmoy, -altitude, -type_eco) # 10 obs 32 var.
+  data_simul <- SimulNatura2014(file_compile=data_compile, horizon=4, climat=F) # 10 obs 37 var.
+  data_simul2 <- data_simul %>% dplyr::select(-sdom_bio, -ptot, -tmoy, -type_eco) # 10 obs 32 var.
 
   result_simule <- as.matrix(data_simul2 %>%   ungroup() %>%
                                dplyr::select(age, hd, is,
@@ -212,73 +212,73 @@ test_that("La fonction principale SimulNatura() donne les mêmes résultats que 
 })
 
 
-test_that("La fonction principale SimulNatura() retourne un message d'erreur si pas les bons noms de colonnes dans le fichier file_arbre", {
+test_that("La fonction principale SimulNatura2014() retourne un message d'erreur si pas les bons noms de colonnes dans le fichier file_arbre", {
 
   data_arbre <- data.frame(placette=1, essence="ERS", dhp=12)
   data_etude <- readRDS(test_path("fixtures", "fic_etude_ex.rds"))
-  expect_error(SimulNatura(file_arbre = data_arbre, file_etude = data_etude, horizon=4, climat=F),"Nom des variables de base incorrect dans le fichier des arbres")
+  expect_error(SimulNatura2014(file_arbre = data_arbre, file_etude = data_etude, horizon=4, climat=F),"Les variables suivantes sont requises dans le fichier des arbres : type_eco, sdom_bio, dhpcm, tige_ha, etat")
 
 })
 
-test_that("La fonction principale SimulNatura() retourne un message d'erreur si pas les bons noms de colonnes dans le fichier file_etude", {
+test_that("La fonction principale SimulNatura2014() retourne un message d'erreur si pas les bons noms de colonnes dans le fichier file_etude", {
 
   data_arbre <- readRDS(test_path("fixtures", "fic_arbre_ex.rds"))
   data_etude <- data.frame(placette=1, essence='SAB', etage='D', dhp=10, hauteur=13, age=40)
-  expect_error(SimulNatura(file_arbre = data_arbre, file_etude = data_etude, horizon=4, climat=F),"Nom des variables incorrect dans le fichier des arbres" )
+  expect_error(SimulNatura2014(file_arbre = data_arbre, file_etude = data_etude, horizon=4, climat=F),"Nom des variables incorrect dans le fichier des arbres-etudes. Les variables suivantes sont requises : dhpcm" )
 
 })
 
-test_that("La fonction principale SimulNatura() retourne un message d'erreur si pas les bons noms de colonnes dans le fichier file_compile", {
+test_that("La fonction principale SimulNatura2014() retourne un message d'erreur si pas les bons noms de colonnes dans le fichier file_compile", {
 
   data_compile <- data.frame(placette=1)
-  expect_error(SimulNatura(file_compile = data_compile, horizon=4,climat=F),"Nom des variables de base incorrect dans le fichier file_compile" )
+  expect_error(SimulNatura2014(file_compile = data_compile, horizon=4,climat=F),"Les variables suivantes sont requises dans le fichier d'inventaire compile : type_eco, sdom_bio, nfi, nft, nsab, nri, nrt, stfi, stft, stsab, stri, strt, vfi, vft, vsab, vri, vrt, hd, is, age" )
 
 })
 
-test_that("La fonction principale SimulNatura() retourne un message d'erreur si les arguments de la fonction ne sont pas bien utilisés", {
+test_that("La fonction principale SimulNatura2014() retourne un message d'erreur si les arguments de la fonction ne sont pas bien utilisés", {
 
-   expect_error(SimulNatura(file_arbre = data_arbre, horizon=4),"Si file_compile n'est pas specifie, file_arbre ET file_etude doivent etre specifies" )
-   expect_error(SimulNatura(file_etude = data_etude, horizon=4),"Si file_compile n'est pas specifie, file_arbre ET file_etude doivent etre specifies" )
-   expect_error(SimulNatura(file_compile = data_compile, file_etude = data_etude, horizon=4),"Seulement un des deux file_arbre et file_etude OU file_compile doit etre specifie" )
-   expect_error(SimulNatura(horizon=4),"Au moins un des deux file_arbre et file_etude OU file_compile doit etre specifie")
-   expect_error(SimulNatura(file_compile = data_compile, horizon=16),"horizon doit etre de 1 a 15" )
-   expect_error(SimulNatura(file_compile = data_compile, horizon=2, dec_perturb = 3),"dec_perturb doit etre <= horizon")
-   expect_error(SimulNatura(file_compile = data_compile, horizon=2, dec_tbe1 = 3),"dec_tbe1 doit etre <= horizon" )
-   expect_error(SimulNatura(file_compile = data_compile, horizon=2, dec_tbe1 = 2),"Si dec_tbe1 est specifie, tbe1 doit etre specifie aussi" )
-   expect_error(SimulNatura(file_compile = data_compile, horizon=2, tbe1 = 2),"Si tbe1 est specifie, dec_tbe1 doit etre specifie aussi" )
-   expect_error(SimulNatura(file_compile = data_compile, horizon=2, dec_tbe1=2, tbe1 = 2.5) )
-   expect_error(SimulNatura(file_compile = data_compile, horizon=2, dec_tbe2=2, tbe2 = 2),"dec_tbe1 et tbe1 doivent etre specifies pour pouvoir utiliser dec_tbe2" )
-   expect_error(SimulNatura(file_compile = data_compile, horizon=3, dec_tbe1=1, tbe1=2, dec_tbe2=4, tbe2 = 2),"dec_tbe2 doit etre <= horizon" )
-   expect_error(SimulNatura(file_compile = data_compile, horizon=3, dec_tbe1=2, tbe1=2, dec_tbe2=1, tbe2 = 2) )
-   expect_error(SimulNatura(file_compile = data_compile, horizon=3, dec_tbe1=1, tbe1=2, dec_tbe2=2),"Si dec_tbe2 est specifie, tbe2 doit etre specifie aussi" )
-   expect_error(SimulNatura(file_compile = data_compile, horizon=3, dec_tbe1=1, tbe1=2, tbe2=2),"Si tbe2 est specifie, dec_tbe2 doit etre specifie aussi" )
-   expect_error(SimulNatura(file_compile = data_compile, horizon=3, dec_tbe1=1, tbe1=2, dec_tbe2=2, tbe2=2.5) )
-   expect_error(SimulNatura(file_arbre=data_arbre, file_etude=data_etude, horizon=5, ht='T'),"ht doit etre TRUE ou FALSE")
-   expect_error(SimulNatura(file_arbre=data_arbre, file_etude=data_etude, horizon=5, vol='T'),"vol doit etre TRUE ou FALSE" )
-   expect_error(SimulNatura(file_arbre=data_arbre, file_etude=data_etude, horizon=5, climat='T'),"climat doit etre TRUE ou FALSE" )
+   expect_error(SimulNatura2014(file_arbre = data_arbre, horizon=4),"Si file_compile n'est pas specifie, file_arbre ET file_etude doivent etre specifies" )
+   expect_error(SimulNatura2014(file_etude = data_etude, horizon=4),"Si file_compile n'est pas specifie, file_arbre ET file_etude doivent etre specifies" )
+   expect_error(SimulNatura2014(file_compile = data_compile, file_etude = data_etude, horizon=4),"Seulement un des deux file_arbre et file_etude OU file_compile doit etre specifie" )
+   expect_error(SimulNatura2014(horizon=4),"Au moins un des deux file_arbre et file_etude OU file_compile doit etre specifie")
+   expect_error(SimulNatura2014(file_compile = data_compile, horizon=16),"horizon doit etre de 1 a 15" )
+   expect_error(SimulNatura2014(file_compile = data_compile, horizon=2, dec_perturb = 3),"dec_perturb doit etre <= horizon")
+   expect_error(SimulNatura2014(file_compile = data_compile, horizon=2, dec_tbe1 = 3),"dec_tbe1 doit etre <= horizon" )
+   expect_error(SimulNatura2014(file_compile = data_compile, horizon=2, dec_tbe1 = 2),"Si dec_tbe1 est specifie, tbe1 doit etre specifie aussi" )
+   expect_error(SimulNatura2014(file_compile = data_compile, horizon=2, tbe1 = 2),"Si tbe1 est specifie, dec_tbe1 doit etre specifie aussi" )
+   expect_error(SimulNatura2014(file_compile = data_compile, horizon=2, dec_tbe1=2, tbe1 = 2.5) )
+   expect_error(SimulNatura2014(file_compile = data_compile, horizon=2, dec_tbe2=2, tbe2 = 2),"dec_tbe1 et tbe1 doivent etre specifies pour pouvoir utiliser dec_tbe2" )
+   expect_error(SimulNatura2014(file_compile = data_compile, horizon=3, dec_tbe1=1, tbe1=2, dec_tbe2=4, tbe2 = 2),"dec_tbe2 doit etre <= horizon" )
+   expect_error(SimulNatura2014(file_compile = data_compile, horizon=3, dec_tbe1=2, tbe1=2, dec_tbe2=1, tbe2 = 2) )
+   expect_error(SimulNatura2014(file_compile = data_compile, horizon=3, dec_tbe1=1, tbe1=2, dec_tbe2=2),"Si dec_tbe2 est specifie, tbe2 doit etre specifie aussi" )
+   expect_error(SimulNatura2014(file_compile = data_compile, horizon=3, dec_tbe1=1, tbe1=2, tbe2=2),"Si tbe2 est specifie, dec_tbe2 doit etre specifie aussi" )
+   expect_error(SimulNatura2014(file_compile = data_compile, horizon=3, dec_tbe1=1, tbe1=2, dec_tbe2=2, tbe2=2.5) )
+   expect_error(SimulNatura2014(file_arbre=data_arbre, file_etude=data_etude, horizon=5, ht='T'),"ht doit etre TRUE ou FALSE")
+   expect_error(SimulNatura2014(file_arbre=data_arbre, file_etude=data_etude, horizon=5, vol='T'),"vol doit etre TRUE ou FALSE" )
+   expect_error(SimulNatura2014(file_arbre=data_arbre, file_etude=data_etude, horizon=5, climat='T'),"climat doit etre TRUE ou FALSE" )
 
 })
 
 
-test_that("La fonction principale SimulNatura() fonction avec climat=T et un fichier d'arbres", {
+test_that("La fonction principale SimulNatura2014() fonction avec climat=T et un fichier d'arbres", {
 
   data_arbre <- readRDS(test_path("fixtures", "fic_arbre_ex.rds")) %>%
     mutate(latitude=47, longitude=-76) %>%
     dplyr::select(-P_TOT, -t_ma)
   data_etude <- readRDS(test_path("fixtures", "fic_etude_ex.rds"))
 
-  data <- SimulNatura(file_arbre=data_arbre, file_etude=data_etude, horizon=4, climat=T)
+  data <- SimulNatura2014(file_arbre=data_arbre, file_etude=data_etude, horizon=4, climat=T)
 
   expect(is.data.frame(data),TRUE)
 })
 
-test_that("La fonction principale SimulNatura() fonction avec climat=T et un fichier compile", {
+test_that("La fonction principale SimulNatura2014() fonction avec climat=T et un fichier compile", {
 
   data_compile <- readRDS(test_path("fixtures", "fic_compil_ex.rds")) %>%
     mutate(latitude=47, longitude=-76) %>%
     dplyr::select(-P_TOT, -t_ma)
 
-  data <- SimulNatura(file_compile=data_compile, horizon=4, climat=T)
+  data <- SimulNatura2014(file_compile=data_compile, horizon=4, climat=T)
 
   expect(is.data.frame(data),TRUE)
 

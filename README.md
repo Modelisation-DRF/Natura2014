@@ -28,6 +28,7 @@ remotes::install_github("Modelisation-DRF/RNatura2014")
 
 | Date |  Version  | Features et bugs | Détails |
 |:-----|:---------:|:-----------------|:--------|
+| 2024-08-22 | 2.2.0 |  | Modifications pour fonctionner comme Natura3 et ajout de validations pour la shiny et renommer fct principale pour eviter confusion avec Natura3 |
 | 2024-06-14 | 2.1.0 |  | Ajout de l'utilisation du package ExtractMap pour climat |
 | 2024-06-11 | 2.0.1 |  | Fixing issues in package evaluation, modif description |
 | 2024-01-25 | 2.0.0 |  | Première version stable du modèle en R |

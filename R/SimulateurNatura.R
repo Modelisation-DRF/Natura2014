@@ -1,6 +1,6 @@
 #' Fonction principale pour une simulation de la croissance d'un peuplement avec le simulateur Natura-2014
 #'
-#' @description \code{SimulNatura()} est la fonction principale pour exécuter une simulation de la croissance d'un peuplement avec le simulateur Natura-2014.
+#' @description \code{SimulNatura2014()} est la fonction principale pour exécuter une simulation de la croissance d'un peuplement avec le simulateur Natura-2014.
 #' Le simulateur s'utilise à partir d'un fichier d'inventaire d'arbres ou d'un fichier à l'échelle de la placette dans lequel les caractéristiques dendrométriques sont fournies.
 #'
 #' @details Les simulations ne se font qu'en mode déterministe. Les 5 groupes d'essences de Natura-2014 sont:
@@ -22,7 +22,7 @@
 #'  \itemize{
 #'    \item placette: identifiant unique de la placette
 #'    \item sdom_bio: code du sous-domaine bioclimatique, en majuscule (ex: 2EST, 4OUEST ou 2E, 4O)
-#'    \item altitude: altitude (m)
+#'    \item altitude: altitude (m), optionnel : nécessaire si \code{climat=T}
 #'    \item type_eco: code du type écologique (ex: MS22)
 #'    \item p_tot: précipitation totale annuelle, moyenne sur la période 1980-2010 (mm). Optionnel: si non fourni, mettre \code{climat=T}.
 #'    \item t_ma: température moyenne annuelle sur la période 1980-2010 (Celcius). Optionnel: si non fourni, mettre \code{climat=T}.
@@ -49,7 +49,6 @@
 #'  \itemize{
 #'    \item placette: identifiant unique de la placette
 #'    \item sdom_bio: code du sous-domaine bioclimatique, en majuscule (ex: 2EST, 4OUEST ou 2E, 4O)
-#'    \item altitude: altitude (m)
 #'    \item type_eco: code du type écologique (ex: MS22)
 #'    \item p_tot: précipitation totale annuelle, moyenne sur la période 1980-2010 (mm). Optionnel: si non fourni, mettre \code{climat=T}.
 #'    \item t_ma: température moyenne annuelle sur la période 1980-2010 (Celcius). Optionnel: si non fourni, mettre \code{climat=T}.
@@ -76,7 +75,7 @@
 #' @param climat Booléen
 #' \itemize{
 #'   \item \code{TRUE} (par défaut): si les variables climatiques doivent être extraites des cartes. Les colonnes latitude et longitude de la placette doivent alors être fournies dans \code{file_arbre} ou dans \code{file_compile}.
-#'   \item \code{FALSE}: si les variables climatiques sont fournies dans le fichier \code{file_arbre} ou \code{file_compile}. p_tot et t_ma ne doivent pas être dans le fichier.
+#'   \item \code{FALSE}: si les variables climatiques sont fournies dans le fichier \code{file_arbre} ou \code{file_compile}.
 #' }
 #' @param dec_perturb Numéro de la décennie avec une perturbation partielle (chablis partiel, brulis partiel), mettre 0 si aucune perturbation (0 par défaut)
 #' @param dec_tbe1 Numéro de la première décennie avec une épidémie de TBE, mettre 0 si aucune d'épidémie (0 par défaut)
@@ -88,10 +87,9 @@
 #'  \itemize{
 #'    \item placette: identifiant unique de la placette
 #'    \item sdom_bio: code du sous-domaine bioclimatique, en majuscule (ex: 2EST, 4OUEST ou 2E, 4O)
-#'    \item altitude: altitude (m)
 #'    \item type_eco: code du type écologique (ex: MS22)
-#'    \item p_tot: précipitation totale annuelle (mm)
-#'    \item t_ma: température moyenne annuelle  (Celcius)
+#'    \item ptot: précipitation totale annuelle (mm)
+#'    \item tmoy: température moyenne annuelle  (Celcius)
 #'    \item age: âge du peuplement (années)
 #'    \item is: indice de structure diamétrale de Shannon
 #'    \item hd: hauteur dominante (m)
@@ -112,28 +110,31 @@
 #' @examples
 #' \dontrun{
 #' # Simulation sur 50 ans à partir d'un fichier à l'échelle de l'arbre
-#' data_simul <- SimulNatura(file_arbre=fichier_arbres, file_etude=fichier_arbres_etudes,
-#' horizon=5, climat=F)
+#' data_simul <- SimulNatura2014(file_arbre=fichier_arbres, file_etude=fichier_arbres_etudes,
+#'  horizon=5, climat=F)
 #'
 #' # Simulation sur 50 ans à partir d'un fichier à l'échelle de l'arbre,
 #' # qui ne contient pas les variables climatiques
-#' data_simul <- SimulNatura(file_arbre=fichier_arbres_sans_climat,
+#' data_simul <- SimulNatura2014(file_arbre=fichier_arbres_sans_climat,
 #' file_etude=fichier_arbres_etudes, horizon=5)
 #'
 #' # Simulation sur 50 ans à partir d'un fichier à l'échelle de la placette
-#' data_simul <- SimulNatura(file_compile=fichier_compile, horizon=5, climat=F)
+#' data_simul <- SimulNatura2014(file_compile=fichier_compile, horizon=5, climat=F)
 #' }
-SimulNatura <- function(file_arbre, file_etude, file_compile, file_export, horizon, ht=TRUE, vol=TRUE, climat=TRUE, dec_perturb=0, dec_tbe1=0, tbe1=0, dec_tbe2=0, tbe2=0){
+SimulNatura2014 <- function(file_arbre, file_etude, file_compile, file_export, horizon, ht=TRUE, vol=TRUE, climat=TRUE, dec_perturb=0, dec_tbe1=0, tbe1=0, dec_tbe2=0, tbe2=0){
 
-
-  # file_arbre=fichier_arbres; file_etude=fichier_arbres_etudes; horizon=5; ht=TRUE; vol=TRUE; dec_perturb=0; dec_tbe1=0; tbe1=0; dec_tbe2=0; tbe2=0;
-  # file_compile=fichier_compile; horizon=5; ht=TRUE; vol=TRUE; dec_perturb=0; dec_tbe1=0; tbe1=0; dec_tbe2=0; tbe2=0;
+  # file_arbre=fichier_arbres_sans_climat; file_etude=fichier_arbres_etudes; horizon=5; climat=TRUE; ht=TRUE; vol=TRUE; dec_perturb=0; dec_tbe1=0; tbe1=0; dec_tbe2=0; tbe2=0;
+  # file_compile=fichier_compile; horizon=5; climat=TRUE; ht=TRUE; vol=TRUE; dec_perturb=0; dec_tbe1=0; tbe1=0; dec_tbe2=0; tbe2=0;
   # file_arbre=data_arbre; file_etude=data_etude; horizon=5; ht=TRUE; vol=TRUE; dec_perturb=0; dec_tbe1=0; tbe1=0; dec_tbe2=0; tbe2=0;
 
 
-
-  # variables nécessaires à Natura et à extraire des rasters
+  # variables nécessaires à Natura et à extraire des rasters (nom dans les rasters)
   variable_climat <- c("totalprecipitation","tmean")
+
+
+  #variables nécessaires à Natura et à extraire des cartes (nom utilisé dans ce package)
+  variable_climat_ <- c("p_tot", "t_ma")
+
 
 
 #############################################################################################
@@ -141,7 +142,8 @@ SimulNatura <- function(file_arbre, file_etude, file_compile, file_export, horiz
 ############################################################################################
 
   # Vérification des arguments de la fonction principale
-  Erreur <- CheckArguments(file_arbre=file_arbre, file_etude=file_etude, file_compile=file_compile, horizon=horizon, ht=ht, vol=vol, dec_perturb=dec_perturb, dec_tbe1=dec_tbe1, tbe1=tbe1, dec_tbe2=dec_tbe2, tbe2=tbe2, climat=climat)
+  Erreur <- CheckArguments(file_arbre=file_arbre, file_etude=file_etude, file_compile=file_compile, horizon=horizon, ht=ht, vol=vol,
+                           dec_perturb=dec_perturb, dec_tbe1=dec_tbe1, tbe1=tbe1, dec_tbe2=dec_tbe2, tbe2=tbe2, climat=climat)
   if (Erreur != 'ok') {stop(Erreur)}
 
 
@@ -152,9 +154,73 @@ SimulNatura <- function(file_arbre, file_etude, file_compile, file_export, horiz
 
 
   if (!missing(file_arbre)) {
-    # Lescture du fichier des arbres
+
+
+    # enlever les variables climatique du fichier si l'extraction est demandée
+    if (isTRUE(climat)){
+
+      file_arbre <- remove_columns(file_arbre, variable_climat_) # ceci va fonctionner seulement si file_arbre est un data.frame, ne fonctionnera pas si fichier csv à importer
+    }
+
+
+    ##################################################################################
+    ################### Lecture des fichiers arbres         ##########################
+    ##################################################################################
+
+    # si le volume est fourni, on bypass le calcul de la hauteur car on en n'a pas besoin
+    if (isFALSE(vol)) ht <- FALSE
+
+    # Lecture du fichier des arbres
     Arbres <- Lecture_arbres(file_arbre=file_arbre, ht=ht, vol=vol, climat=climat)
     if (is.character(Arbres)) {stop(Arbres)} # Erreur lors de la lecture du fichier des arbres
+
+    # Valider le contenu des colonnes reliées aux arbres (si ht et/ou vol fournis, ils ne sont pas validés. Ils seront validés indirectement par les vxxx et vtot)
+    Arbres <- valid_arbre(type_fic='arbres', fichier=Arbres)
+    if (is.character(Arbres)) {stop(Arbres)} # s'il y a des erreurs, on arrête la simulation
+
+    Arbres <- Arbres %>%
+      filter(dhpcm>9) %>%
+      mutate(no_arbre=row_number())
+
+
+    # Lecture du fichier des études d'arbres
+    EtudeA<-Lecture_etudes(file_etude=file_etude)
+    if (is.character(EtudeA)) {stop(EtudeA)}
+
+    # Valider le contenu des colonnes reliées aux arbres etudes
+    EtudeA <- valid_arbre(type_fic='etudes', fichier=EtudeA)
+    if (is.character(EtudeA)) {stop(EtudeA)} # s'il y a des erreurs, on arrête la simulation
+
+    EtudeA <- EtudeA %>%
+      filter(dhpcm>9, toupper(etage) %in% c('C','D')) %>%
+      dplyr::select(placette, essence, dhpcm, hauteur, age)
+
+
+    ##################################################################################
+    ################### Filtrer et préparer les données        #######################
+    ##################################################################################
+
+    # Filtrer le contenu des placettes
+    filtre <- valid_placette(type_fic='arbres', fichier=Arbres, ht=ht, climat=climat)
+
+    Arbres <- filtre[[1]] # fichier filtré
+    placette_rejet <- filtre[[2]] # liste des placettes rejetées avec le message
+
+    # si toutes les placettes ont été rejetées, arrêter la simulation
+    if (nrow(Arbres)==0) stop("Aucune placette valide dans le fichier des arbres")
+
+    # liste des placettes
+    liste_place <- unique(Arbres$placette)
+    # ne garder les placettes qui sont dans les arbres et dans les etude
+    EtudeA <- EtudeA[EtudeA$placette %in% liste_place,]
+
+    liste_place_etude <- unique(EtudeA$placette)
+    # ne garder que les placettes qui ont des arbres études
+    Arbres <- Arbres[Arbres$placette %in% liste_place_etude,]
+
+    # Vérifier s'il reste des placettes valides
+    if (nrow(Arbres)==0) {stop("Aucune placette valide dans le fichier des arbres-etudes")}
+
 
     # extraire les variables de climat pour le modèle de hauteur si nécessaire
     if (isTRUE(climat & isTRUE(ht))) {
@@ -164,62 +230,94 @@ SimulNatura <- function(file_arbre, file_etude, file_compile, file_export, horiz
 
     }
 
-        # Lecture du fichier des études d'arbres
-    EtudeA<-Lecture_etudes(file_etude=file_etude)
-    if (is.character(EtudeA)) {stop(EtudeA)}
+
+    ##################################################################################
+    ################### Compiler les arbres à la placette   ##########################
+    ##################################################################################
+
 
     # Exécuter la fonction qui prépare le fichier des arbres, et le compile à l'échelle des groupes d'essences
     if (isFALSE(vol)) ht <- FALSE  # si le volume est fourni, on bypass le calcul de la hauteur car on en n'a pas besoin
-    DataCompile <- Prep_arbres(fic_arbre=Arbres, ht=ht, vol=vol) # si tout es ok, on prépare les arbres et on compile à la placette
+    prep_arb  <- Prep_arbres(fic_arbre=Arbres, ht=ht, vol=vol) # si tout es ok, on prépare les arbres et on compile à la placette
+
+    DataCompile <- prep_arb[[2]]      # extraire le fichier compile a la placette
+    Arbres_prep <- prep_arb[[1]]      # extraire le fichier des arbres pour le calcul de la hauteur dominante
 
     # appliquer la fonction qui calcule la hdom et l'age du la placette à partir des études d'arbres
-    AgeHD <- Prep_etude(fic_etude=EtudeA, compile_arbre=DataCompile)
+    AgeHD <- Prep_etude(fic_etude=EtudeA, fic_arbre=Arbres_prep)
 
     # ajouter l'age et hdom au fichier compilé
-    DataCompile <- inner_join(DataCompile, AgeHD, by = "placette") %>%
-      dplyr::select(-dhp4_moy)
+    DataCompile <- inner_join(DataCompile, AgeHD, by = "placette")# %>%
+      #dplyr::select(-dhp4_moy)
 
   }
 
+
+  ###########################################################################################################
+  ################### Importation des fichiers échelle placette et préparation des données ##################
+  ###########################################################################################################
+
+  # file_compile=fichier_compile; horizon=5; climat=TRUE; ht=TRUE; vol=TRUE; dec_perturb=0; dec_tbe1=0; tbe1=0; dec_tbe2=0; tbe2=0;
+
   # si fichier compile a la placette
   else {
+
+    ##################################################################################
+    ################### Lecture du fichier compilé placette ##########################
+    ##################################################################################
+
+
+    if (isTRUE(climat)){
+      file_compile <- remove_columns(file_compile, variable_climat_)
+    }
+
 
     # Lectude du fichier compilé à la placette
     DataCompile0 <- Lecture_compile(file_compile=file_compile, climat=climat)
     if (is.character(DataCompile0)) {stop(DataCompile0)}
 
+
+    ##################################################################################
+    ################### Filtrer et préparer les données        #######################
+    ##################################################################################
+
+    # Filtrer les placettes
+    filtre <- valid_placette(type_fic='compile', fichier=DataCompile0, climat=climat)
+
+    DataCompile <- filtre[[1]] # fichier filtré
+    placette_rejet <- filtre[[2]] # liste des placettes rejetées avec le message
+
+    # si toutes les placettes ont été rejetées, arrêter la simulation
+    if (nrow(DataCompile)==0) stop("Aucune placette valide dans le fichier file_compile")
+
+    # créer et renommer les variables qui seront nécessaires
+    DataCompile <- DataCompile %>%
+      mutate(nfi = nfi/25, nft = nft/25, nsab = nsab/25, nri = nri/25, nrt = nrt/25)
+
     # extraire les variables de climat si nécessaire
     if (isTRUE(climat)) {
-      DataCompile0 <- DataCompile0 %>% rename(id_pe=placette)
-      DataCompile0 <- ExtractMap::extract_map_plot(file=DataCompile0, liste_raster="cartes_climat", variable=variable_climat) %>%
+      DataCompile <- DataCompile %>% rename(id_pe=placette)
+      DataCompile <- ExtractMap::extract_map_plot(file=DataCompile, liste_raster="cartes_climat", variable=variable_climat) %>%
         rename(t_ma = tmean, p_tot = totalprecipitation, placette=id_pe)
     }
 
-      # filtrer les placettes (je le fais à l'extérieur de la fonction pour avoir acces au fichier non filtré)
-      DataCompile <- DataCompile0 %>%
-        dplyr::select(placette, sdom_bio, altitude, p_tot, t_ma, type_eco, age, is, hd, nfi, nft, nri, nrt, nsab, stfi, stft, stri, strt, stsab, vfi, vft, vri, vrt, vsab) %>%
-        mutate(sdom_bio=substr(sdom_bio,1,2),
-               nfi = nfi/25,
-               nft = nft/25,
-               nri = nri/25,
-               nrt = nrt/25,
-               nsab = nsab/25,
-               ncom = nfi+nft+nri+nrt+nsab,
-               stcom = stfi+stft+stri+strt+stsab,
-               vcom = vfi+vft+vri+vrt+vsab,
-               veg_pot = substr(type_eco,1,3),
-               milieu = as.character(substr(type_eco,4,4))) %>%
-        filter(sdom_bio %in% c('1','2E','2O','3E','3O','4E','4O','5E','5O','6E','6O')) %>%
-        filter(milieu %in% c("0","1","2","3","4","5","6","7","8","9"))
-        #filter(veg_pot %in% c('FE1','FE2','FE3','FE4','FE5','FE6','FC1','FO1','ME1','MF1','MJ1','MJ2','MS1','MS2','MS4','MS6','RB1','RB2','RB5','RC3','RE1','RE2','RE3','RE4','RP1','RS1','RS2','RS3','RS4','RS5','RT1'))
+  } # fin de la préparation du fichier compilé
 
 
-      # Ne garder que les vp de natura-2014
-      DataCompile <- inner_join(DataCompile, vp, by='veg_pot')
+  ##################################################################################
+  ################### Préparer les variables nécessaires au modèle #################
+  ##################################################################################
 
+# validation des ntot, sttot et vtot
+filtre <- valid_placette(type_fic='valid', fichier=DataCompile)
+DataCompile <- filtre[[1]] # fichier filtré
+placette_rejet2 <- filtre[[2]] # liste des placettes rejetées avec le message
 
+# si toutes les placettes ont été rejetées, arrêter la simulation
+if (nrow(DataCompile)==0) stop("Aucune placette valide selon les totaux de N, St ou V")
 
-  }
+# Préparer les variables binaires, pour toutes les itérations, car on calcule vtot, qui peut varier s'il provient d'un fichier arbre en mode stochastique
+DataCompile <- Prep_compile(fichier_compile=DataCompile)
 
 # ajouter les paramètres des équations de Natura au fichier compilé
 Data_compile2 <- Prep_parametre(data=DataCompile)
@@ -228,30 +326,18 @@ Data_compile2 <- Prep_parametre(data=DataCompile)
 # Simulation
 Data_simule <- Natura(data=Data_compile2, horizon=horizon, dec_perturb=dec_perturb, dec_tbe1=dec_tbe1, tbe1=tbe1, dec_tbe2=dec_tbe2, tbe2=tbe2)
 
-# ajouter les placettes non simulées aux placettes simulées
-# if (!missing(file_arbre)) { # créer une liste des placettes soumises
-#   liste <- Arbres %>%
-#     dplyr::select(placette, type_eco) %>%
-#     unique()
-# }
-# else if (!missing(file_compile)) {
-#   liste <- DataCompile0 %>%
-#     dplyr::select(placette, type_eco) %>%
-#     unique()
-# }
-# liste_simul <- Data_simule %>% # créer une liste des placettes simulées
-#   dplyr::select(placette, sdom_bio, altitude, ptot, tmoy, type_eco) %>%
-#   unique()
-# liste_non_simul <- anti_join(liste, liste_simul, by=c("placette", "type_eco")) # liste des placettes non simulées
-# Data_simule_tous <- bind_rows(Data_simule, liste_non_simul)
+# liste des placettes rejetées
+if (!is.null(placette_rejet) | !is.null(placette_rejet2)) {
+  placette_rejet_tous <- as.data.frame(bind_rows(placette_rejet, placette_rejet2) %>% arrange(placette))
+  # ajouter les placettes rejetées à la fin du fichier des simulations
+  Data_simule <- bind_rows(Data_simule, placette_rejet_tous)
+}
 
 
 # Exporter la simulation
 if (!missing(file_export)) {
-write_delim(Data_simule, file_export, delim = ';')
+  write_delim(Data_simule, file_export, delim = ';')
 }
-
-
 
 return(Data_simule)
 

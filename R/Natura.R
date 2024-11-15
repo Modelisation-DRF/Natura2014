@@ -11,7 +11,7 @@
 #' @description Effectue une simulation complète (tous les pas de simulation) avec le modèle Natura-2014
 #'
 #' @param data Fichier compilé à la placette par groupe d'essences, départ des simulations
-#' @inheritParams SimulNatura
+#' @inheritParams SimulNatura2014
 #'
 #' @return Table avec une ligne par placette et pas de simulation contenant les prévision de HD et IS et de N, ST et V de chacun des groupes d'essences
 #' @export
@@ -459,7 +459,7 @@ Natura <- function(data, horizon, dec_perturb=0, dec_tbe1=0, tbe1=0, dec_tbe2=0,
            Warning)
   # ajouter les info placette
   outputFinal2  <- data %>%
-    dplyr::select(placette, sdom_bio, altitude, ptot, tmoy, type_eco) %>%
+    dplyr::select(placette, sdom_bio, ptot, tmoy, type_eco) %>%
     inner_join(outputFinal, by='placette')
 
 

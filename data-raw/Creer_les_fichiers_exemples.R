@@ -44,7 +44,7 @@ fichier_compile <- fichier_compile %>%
          nrt = nrt+nepn+nepx,
          strt = strt+stepn+stepx,
          vrt = vrt+vepn+vepx) %>%
-  dplyr::select(placette, sdom_bio, reg_eco, type_eco, age, is, hd, p_tot, t_ma, altitude,
+  dplyr::select(placette, sdom_bio, reg_eco, type_eco, age, is, hd, p_tot, t_ma, altitude, latitude, longitude,
                 nfi, nft, nrt, nri, nsab,
                 stfi, stft, strt, stri, stsab,
                 vfi, vft, vrt, vri, vsab)

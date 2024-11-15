@@ -4,12 +4,12 @@
 \alias{Prep_etude}
 \title{Calcule la hauteur dominante et l'âge moyen à la step 0}
 \usage{
-Prep_etude(fic_etude, compile_arbre)
+Prep_etude(fic_etude, fic_arbre)
 }
 \arguments{
 \item{fic_etude}{Table des arbres-études}
 
-\item{compile_arbre}{Table contenant les placettes compilées}
+\item{fic_arbre}{Table contenant les placettes compilées}
 }
 \value{
 Table contenant la hauteur dominante et l'âge de chaque placette, une ligne par placette.
