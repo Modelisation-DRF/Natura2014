@@ -2,7 +2,7 @@
 #'
 #' @description Vérification des arguments de la fonction principale \code{SimulNatura()} du simulateur Natura-2014
 #'
-#' @inheritParams SimulNatura
+#' @inheritParams SimulNatura2014
 #'
 #' @return Une chaine de caractères contant "ok" s'il n'y a pas d'erreur, sinon, contient un message d'erreur.
 #' @export

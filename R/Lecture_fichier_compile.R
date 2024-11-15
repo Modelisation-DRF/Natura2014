@@ -2,7 +2,7 @@
 #'
 #' @description Lire le fichier des placettes à simuler avec Natura et valider le nom des colonnes.
 #'
-#' @inheritParams SimulNatura
+#' @inheritParams SimulNatura2014
 #'
 #' @return Table à l'échelle de la placette ou un message d'erreur s'il y a une erreur dans le nom des colonnes.
 #' @export

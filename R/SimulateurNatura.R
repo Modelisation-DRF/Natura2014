@@ -1,6 +1,6 @@
 #' Fonction principale pour une simulation de la croissance d'un peuplement avec le simulateur Natura-2014
 #'
-#' @description \code{SimulNatura()} est la fonction principale pour exécuter une simulation de la croissance d'un peuplement avec le simulateur Natura-2014.
+#' @description \code{SimulNatura2014()} est la fonction principale pour exécuter une simulation de la croissance d'un peuplement avec le simulateur Natura-2014.
 #' Le simulateur s'utilise à partir d'un fichier d'inventaire d'arbres ou d'un fichier à l'échelle de la placette dans lequel les caractéristiques dendrométriques sont fournies.
 #'
 #' @details Les simulations ne se font qu'en mode déterministe. Les 5 groupes d'essences de Natura-2014 sont:
@@ -110,18 +110,18 @@
 #' @examples
 #' \dontrun{
 #' # Simulation sur 50 ans à partir d'un fichier à l'échelle de l'arbre
-#' data_simul <- SimulNatura(file_arbre=fichier_arbres, file_etude=fichier_arbres_etudes,
+#' data_simul <- SimulNatura2014(file_arbre=fichier_arbres, file_etude=fichier_arbres_etudes,
 #'  horizon=5, climat=F)
 #'
 #' # Simulation sur 50 ans à partir d'un fichier à l'échelle de l'arbre,
 #' # qui ne contient pas les variables climatiques
-#' data_simul <- SimulNatura(file_arbre=fichier_arbres_sans_climat,
+#' data_simul <- SimulNatura2014(file_arbre=fichier_arbres_sans_climat,
 #' file_etude=fichier_arbres_etudes, horizon=5)
 #'
 #' # Simulation sur 50 ans à partir d'un fichier à l'échelle de la placette
-#' data_simul <- SimulNatura(file_compile=fichier_compile, horizon=5, climat=F)
+#' data_simul <- SimulNatura2014(file_compile=fichier_compile, horizon=5, climat=F)
 #' }
-SimulNatura <- function(file_arbre, file_etude, file_compile, file_export, horizon, ht=TRUE, vol=TRUE, climat=TRUE, dec_perturb=0, dec_tbe1=0, tbe1=0, dec_tbe2=0, tbe2=0){
+SimulNatura2014 <- function(file_arbre, file_etude, file_compile, file_export, horizon, ht=TRUE, vol=TRUE, climat=TRUE, dec_perturb=0, dec_tbe1=0, tbe1=0, dec_tbe2=0, tbe2=0){
 
   # file_arbre=fichier_arbres_sans_climat; file_etude=fichier_arbres_etudes; horizon=5; climat=TRUE; ht=TRUE; vol=TRUE; dec_perturb=0; dec_tbe1=0; tbe1=0; dec_tbe2=0; tbe2=0;
   # file_compile=fichier_compile; horizon=5; climat=TRUE; ht=TRUE; vol=TRUE; dec_perturb=0; dec_tbe1=0; tbe1=0; dec_tbe2=0; tbe2=0;

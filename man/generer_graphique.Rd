@@ -2,48 +2,48 @@
 % Please edit documentation in R/Graphique.R
 \name{generer_graphique}
 \alias{generer_graphique}
-\title{Graphique d'évolution des variables forestières}
+\title{Graphique d'evolution des variables forestieres}
 \usage{
 generer_graphique(Data, Espece = "tot", Variable = "st", listePlacette)
 }
 \arguments{
-\item{Data}{Un data.frame contenant les données forestières. Le data.frame
+\item{Data}{Un data.frame contenant les donnees forestieres. Le data.frame
 doit inclure au moins les colonnes suivantes :
  placette (identifiant de la placette),
  annee,
- et les variables à tracer (par exemple, sttot, stbop, etc.).}
+ et les variables a tracer (par exemple, sttot, stbop, etc.).}
 
-\item{Espece}{Une chaîne de caractères spécifiant l'espèce d'arbre pour
-laquelle générer le graphique. Les valeurs possibles incluent
+\item{Espece}{Une chaine de caracteres specifiant l'espece d'arbre pour
+laquelle generer le graphique. Les valeurs possibles incluent
  "tot" (toutes essences),
- "bop" (bouleau à papier),
+ "bop" (bouleau a papier),
  "peu" (peupliers),
- "ft" (feuillus tolérants),
+ "ft" (feuillus tolerants),
  "sab" (sapin baumier),
- "epn" (épinette noire),
- "epx" (autres épinettes),
- "ri" (résineux intolérants),
- "rt" (autres résineux tolérants).
- La valeur par défaut est "tot".}
+ "epn" (epinette noire),
+ "epx" (autres epinettes),
+ "ri" (resineux intolerants),
+ "rt" (autres resineux tolerants).
+ La valeur par defaut est "tot".}
 
-\item{Variable}{Une chaîne de caractères spécifiant la variable à tracer.
+\item{Variable}{Une chaine de caracteres specifiant la variable a tracer.
 Les valeurs possibles incluent
- "st" (surface terrière marchande en m2/ha),
- "n" (nombre d’arbres marchands par ha), "
+ "st" (surface terriere marchande en m2/ha),
+ "n" (nombre d'arbres marchands par ha), "
  v" (volume marchand en m3/ha),
  "hd" (hauteur dominante en m),
- "dq" (diamètre quadratique moyen en cm).
- La valeur par défaut est "st".}
+ "dq" (diametre quadratique moyen en cm).
+ La valeur par defaut est "st".}
 
 \item{listePlacette}{Une liste ou un vecteur contenant les identifiants des
-placettes à inclure dans le graphique.}
+placettes a inclure dans le graphique.}
 }
 \value{
-Un objet ggplot représentant le graphique d'évolution de la variable
-spécifiée sur la période d'année
+Un objet ggplot representant le graphique d'evolution de la variable
+specifiee sur la periode d'annee
 }
 \description{
-Cette fonction génère un graphique d'évolution pour différentes
-variables forestières sur une période d'année donnée, en fonction des
-espèces et des placettes spécifiées.
+Cette fonction genere un graphique d'evolution pour differentes
+variables forestieres sur une periode d'annee donnee, en fonction des
+especes et des placettes specifiees.
 }

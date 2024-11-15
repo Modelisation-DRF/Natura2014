@@ -6,7 +6,7 @@
 #'
 #'
 #' @param fic_arbre Table avec une ligne par arbre (ou par classe de dhp) pour chaque placette, avec les colonnes : placette, sdom_bio, altitude, p_tot, t_ma, essence, dhpcm, type_eco, tige_ha, etat
-#' @inheritParams SimulNatura
+#' @inheritParams SimulNatura2014
 #'
 #' @return Table des caractéristiques des placettes (une ligne par placette)
 #' @export

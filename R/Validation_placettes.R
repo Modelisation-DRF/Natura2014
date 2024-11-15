@@ -4,7 +4,7 @@
 #
 #' @param type_fic Type du fichier à vérifier: arbres ou compil ou valid
 #' @param fichier Nom de la table à vérifier
-#' @inheritParams SimulNatura
+#' @inheritParams SimulNatura2014
 #'
 #' @return Table ou message d'erreur
 #'

@@ -11,7 +11,7 @@
 #' @description Effectue une simulation complète (tous les pas de simulation) avec le modèle Natura-2014
 #'
 #' @param data Fichier compilé à la placette par groupe d'essences, départ des simulations
-#' @inheritParams SimulNatura
+#' @inheritParams SimulNatura2014
 #'
 #' @return Table avec une ligne par placette et pas de simulation contenant les prévision de HD et IS et de N, ST et V de chacun des groupes d'essences
 #' @export
