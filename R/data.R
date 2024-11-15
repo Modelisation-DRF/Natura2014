@@ -104,3 +104,29 @@
 #' @examples
 #' fichier_compile
 "fichier_compile"
+
+
+
+#' Table des essences traitées avec le regroupement
+#'
+#' Table de 2 colonnes
+#'
+#' @format ## `espece`
+#' Table de 44 lignes et 2 colonnes:
+#' \describe{
+#'   \item{essence}{Code d'essences}
+#'   \item{groupe_ess}{Code du groupement d'essence}
+#'   }
+#' @examples
+#' espece
+"espece"
+
+
+#' Vecteur des végétations potentielles traitées
+#'
+#' Vecteur de 31
+#'
+#' @format ## `vp_retenues`
+#' @examples
+#' vp_retenues
+"vp_retenues"

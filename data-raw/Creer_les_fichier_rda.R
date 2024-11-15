@@ -100,10 +100,12 @@ ParmsMoy<-read.sas7bdat("data-raw/moyenne_20140424.sas7bdat") %>% mutate(sdom_bi
 ########################################################################################
 
 # tous les fichier à mettre dans le rda
-usethis::use_data(espece, vp_retenues, n_st_max, nom_variables, fic_validation,
+usethis::use_data(n_st_max, nom_variables, fic_validation,
                   b2, ParmsMoy,
                   ParmsFi, ParmsFt, ParmsRi, ParmsRt, ParmsSab,
                   ParmsIsd, ParmsHd,
                   internal=TRUE, overwrite = TRUE)
 
-
+# mettre espece et vp_retenu accessible à l'extérieur
+usethis::use_data(espece, vp_retenues,
+                  internal=FALSE, overwrite = TRUE)
