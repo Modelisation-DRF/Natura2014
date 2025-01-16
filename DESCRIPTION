@@ -1,7 +1,7 @@
 Package: RNatura2014
 Type: Package
 Title: Forest growth simulator Natura-2014
-Version: 2.2.0
+Version: 2.2.1
 Authors@R: c(
     person("Isabelle", "Auger", email = "isabelle.auger@mrnf.gouv.qc.ca", role = c("aut", "cre")),
     person("Mathieu", "Fortin", email = "mathieu.fortin@nrcan-rncan.gc.ca", role = c("ctb")))
@@ -16,6 +16,7 @@ LazyData: true
 Depends: 
     dplyr (>= 1.1.4),
     tidyverse (>= 2.0.0),
+    data.table,
     R (>= 3.5.0)
 Imports:
     readxl (>= 1.4.3),

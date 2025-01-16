@@ -4,7 +4,7 @@
 \alias{generer_graphique}
 \title{Graphique d'evolution des variables forestieres}
 \usage{
-generer_graphique(Data, Espece = "tot", Variable = "st", listePlacette)
+generer_graphique(Data, Espece = "tot", Variable = "st")
 }
 \arguments{
 \item{Data}{Un data.frame contenant les donnees forestieres. Le data.frame
@@ -16,27 +16,21 @@ doit inclure au moins les colonnes suivantes :
 \item{Espece}{Une chaine de caracteres specifiant l'espece d'arbre pour
 laquelle generer le graphique. Les valeurs possibles incluent
  "tot" (toutes essences),
- "bop" (bouleau a papier),
- "peu" (peupliers),
+ "fi" (feuillus intolerants),
  "ft" (feuillus tolerants),
- "sab" (sapin baumier),
- "epn" (epinette noire),
- "epx" (autres epinettes),
  "ri" (resineux intolerants),
- "rt" (autres resineux tolerants).
+ "rt" (resineux tolerants).
+ "sab" (sapin baumier),
  La valeur par defaut est "tot".}
 
 \item{Variable}{Une chaine de caracteres specifiant la variable a tracer.
 Les valeurs possibles incluent
  "st" (surface terriere marchande en m2/ha),
  "n" (nombre d'arbres marchands par ha), "
- v" (volume marchand en m3/ha),
+ "v" (volume marchand en m3/ha),
  "hd" (hauteur dominante en m),
  "dq" (diametre quadratique moyen en cm).
  La valeur par defaut est "st".}
-
-\item{listePlacette}{Une liste ou un vecteur contenant les identifiants des
-placettes a inclure dans le graphique.}
 }
 \value{
 Un objet ggplot representant le graphique d'evolution de la variable
