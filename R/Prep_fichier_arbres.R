@@ -61,14 +61,14 @@ info_plac <- Data %>%
 
 # calcul de la hauteur des arbres
 if (isTRUE(ht)) {
-  DataHt <- TarifQC::relation_h_d(fic_arbres=Data1)
+  DataHt <- OutilsDRF::relation_h_d(fic_arbres=Data1)
 }
 else DataHt <- Data1
 
 
 # Calcul du volume des arbres: prévoit le volume en dm3 pour un arbre entier (ne tient pas compte du nombre d'arbres)
 if (isTRUE(vol)) {
-  DataHtVol <- TarifQC::cubage(fic_arbres=DataHt)
+  DataHtVol <- OutilsDRF::cubage(fic_arbres=DataHt)
 }
 else DataHtVol <- DataHt
 
