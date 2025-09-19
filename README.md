@@ -35,6 +35,7 @@ remotes::install_github("Modelisation-DRF/Natura2014")
 
 | Date |  Version  | Features et bugs | Détails |
 |:-----|:---------:|:-----------------|:--------|
+| 2025-09-19 | 2.2.3 |  | Ménage dans Imports et Depends et ajout package.R pour lister les @importFrom |
 | 2025-05-09 | 2.2.2 |  | Changer le package TarifQC pour OutilsDRF et renommer le package |
 | 2025-01-16 | 2.2.1 |  | Correction de la fonction genere_graphique |
 | 2024-08-22 | 2.2.0 |  | Modifications pour fonctionner comme Natura3 et ajout de validations pour la shiny et renommer fct principale pour eviter confusion avec Natura3 |
