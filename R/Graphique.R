@@ -32,7 +32,6 @@
 #'
 #' @export
 #'
-#' @import data.table
 #'
 generer_graphique <- function(Data, Espece = "tot", Variable = "st") {
 

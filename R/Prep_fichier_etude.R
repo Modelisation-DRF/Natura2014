@@ -22,7 +22,7 @@ Prep_etude <- function(fic_etude, fic_arbre){
     group_by(placette) %>%
     arrange(placette, desc(dhpcm)) %>%
     mutate(somme_poids = cumsum(nb_tige),
-           somme_poids_prec = lag(somme_poids),
+           somme_poids_prec = dplyr::lag(somme_poids),
            somme_poids_prec = ifelse(is.na(somme_poids_prec),0,somme_poids_prec),
            select_id = ifelse(somme_poids_prec>=4 & somme_poids>4,0,1)) %>%
     filter(select_id==1) %>%

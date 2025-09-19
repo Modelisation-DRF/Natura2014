@@ -1,7 +1,7 @@
 Package: Natura2014
 Type: Package
 Title: Forest growth simulator Natura-2014
-Version: 2.2.2
+Version: 2.2.3
 Authors@R: c(
     person("Isabelle", "Auger", email = "isabelle.auger@mrnf.gouv.qc.ca", role = c("aut", "cre")),
     person("Mathieu", "Fortin", email = "mathieu.fortin@nrcan-rncan.gc.ca", role = c("ctb")))
@@ -13,20 +13,23 @@ Description: Natura-2014 is a stand level forest growth model based on stand age
 License: LGPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Depends: 
-    dplyr (>= 1.1.4),
-    tidyverse (>= 2.0.0),
-    data.table,
-    R (>= 3.5.0)
 Imports:
-    readxl (>= 1.4.3),
-    readr (>= 2.1.5),
-    OutilsDRF,
-    ExtractMap (>= 1.1.2)
+    data.table,
+    dplyr,
+    tidyr,
+    readxl,  
+    readr, 
+    stringr,
+    ggplot2,
+    OutilsDRF,         
+    ExtractMap 
 Remotes:
     Modelisation-DRF/OutilsDRF,
     Modelisation-DRF/ExtractMap
 Suggests: 
+    purrr,
     testthat (>= 3.0.0)
+Depends: 
+    R (>= 3.5.0)
 RoxygenNote: 7.3.2
 Config/testthat/edition: 3

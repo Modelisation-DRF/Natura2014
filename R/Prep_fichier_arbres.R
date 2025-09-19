@@ -103,7 +103,8 @@ compil2 <- compil %>%
 compil_n <- compil2 %>%
   dplyr::select(placette, groupe_ess, nb_tige) %>%
   group_by(placette) %>%
-  spread(key = groupe_ess, value = nb_tige) %>%
+  #spread(key = groupe_ess, value = nb_tige) %>%
+  pivot_wider(names_from = groupe_ess, values_from = nb_tige) %>%
   filter(!is.na(placette)) %>%
   rename(nfi=Fi, nft=Ft, nri=Ri, nrt=Rt, nsab=Sab) %>%
   replace(is.na(.),0)
@@ -112,7 +113,8 @@ compil_n <- compil2 %>%
 compil_st <- compil2 %>%
   dplyr::select(placette, groupe_ess, st_m2ha) %>%
   group_by(placette) %>%
-  spread(key = groupe_ess, value = st_m2ha) %>%
+  #spread(key = groupe_ess, value = st_m2ha) %>%
+  pivot_wider(names_from = groupe_ess, values_from = st_m2ha) %>%
   filter(!is.na(placette)) %>%
   rename(stfi=Fi, stft=Ft, stri=Ri, strt=Rt, stsab=Sab) %>%
   replace(is.na(.),0)
@@ -121,7 +123,8 @@ compil_st <- compil2 %>%
 compil_v <- compil2 %>%
   dplyr::select(placette, groupe_ess, vol_m3ha) %>%
   group_by(placette) %>%
-  spread(key = groupe_ess, value = vol_m3ha) %>%
+  #spread(key = groupe_ess, value = vol_m3ha) %>%
+  pivot_wider(names_from = groupe_ess, values_from = vol_m3ha) %>%
   filter(!is.na(placette)) %>%
   rename(vfi=Fi, vft=Ft, vri=Ri, vrt=Rt, vsab=Sab) %>%
   replace(is.na(.),0)
