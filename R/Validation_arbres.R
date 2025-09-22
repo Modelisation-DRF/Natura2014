@@ -32,9 +32,9 @@ valid_arbre <- function(type_fic, fichier) {
   }
 
   # on accumule tous les messages
-  erreur <- NULL
+  erreur <- data.frame()
   for (i in 1:nrow(valid)) {
-    # i=4
+    # i=1
 
     # les valeurs possibles
     val <- as.character(valid[i, 2])
@@ -47,18 +47,30 @@ valid_arbre <- function(type_fic, fichier) {
 
     # s'il y a des lignes avec des erreurs, on ajoute le message d'erreur
     if (nrow(fichier_val) > 0) {
-      erreur <- c(erreur, message)
+      #erreur <- c(erreur, message)
+      # on ajoute le message au fichier
+      fichier_val$message <- message
+
+      # on accumule les lignes avec erreur
+      erreur <- bind_rows(erreur, fichier_val)
     }
   }
 
-  # si erreur n'est pas vide on retourne l'erreur, sinon on retourne le fichier
-  # if (!is.null(erreur)) {result <- erreur} else result <- fichier
-  if (!is.null(erreur)) {
-    # result <- erreur
-    result <- paste(erreur, collapse = ", ")
-  } else {
-    result <- fichier
+  # on enlève les placettes qui ont au moins un arbre en erreur
+  if (nrow(erreur)>0) {
+    liste_erreur <- erreur %>% dplyr::select(placette) %>% unique()
+    fichier <- anti_join(fichier, liste_erreur, by='placette')
   }
 
-  return(result)
+
+  # si erreur n'est pas vide on retourne l'erreur, sinon on retourne le fichier
+  # if (!is.null(erreur)) {result <- erreur} else result <- fichier
+  # if (!is.null(erreur)) {
+  #   # result <- erreur
+  #   result <- paste(erreur, collapse = ", ")
+  # } else {
+  #   result <- fichier
+  # }
+
+  return(list(fichier, erreur))
 }

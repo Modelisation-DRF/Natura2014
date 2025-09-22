@@ -105,7 +105,8 @@ valid_placette <- function(type_fic, fichier, ht = NULL, climat = NULL) {
   # fichier <- fichier_compile_aveccov; names(fichier)  <- tolower(names(fichier))
   fichier_complet <- fichier
   # on accumule tous les messages
-  erreur <- NULL
+  #erreur <- NULL
+  erreur <- data.frame()
 
   for (i in 1:nrow(valid)) {
     # i=1
@@ -133,7 +134,8 @@ valid_placette <- function(type_fic, fichier, ht = NULL, climat = NULL) {
   }
 
   # si erreur n'est pas vide on garde une ligne par placette/message
-  if (!is.null(erreur)) {
+  #if (!is.null(erreur)) {
+  if (nrow(erreur)>0) {
     # erreur <- erreur %>% group_by(id_pe) %>% slice(1)
     erreur <- erreur %>%
       dplyr::select(placette, message) %>%

@@ -260,7 +260,7 @@ test_that("La fonction principale SimulNatura2014() retourne un message d'erreur
 })
 
 
-test_that("La fonction principale SimulNatura2014() fonction avec climat=T et un fichier d'arbres", {
+test_that("La fonction principale SimulNatura2014() fonctionne avec climat=T et un fichier d'arbres", {
 
   data_arbre <- readRDS(test_path("fixtures", "fic_arbre_ex.rds")) %>%
     mutate(latitude=47, longitude=-76) %>%
@@ -272,7 +272,7 @@ test_that("La fonction principale SimulNatura2014() fonction avec climat=T et un
   expect(is.data.frame(data),TRUE)
 })
 
-test_that("La fonction principale SimulNatura2014() fonction avec climat=T et un fichier compile", {
+test_that("La fonction principale SimulNatura2014() fonctionne avec climat=T et un fichier compile", {
 
   data_compile <- readRDS(test_path("fixtures", "fic_compil_ex.rds")) %>%
     mutate(latitude=47, longitude=-76) %>%
@@ -284,3 +284,135 @@ test_that("La fonction principale SimulNatura2014() fonction avec climat=T et un
 
 })
 
+test_that("La fonction principale SimulNatura2014() fonctionne avec fichier compile avec des valeurs hors limite", {
+
+  data_compile <- readRDS(test_path("fixtures", "fic_compil_ex.rds")) %>%
+    mutate(Age=ifelse(placette==1, 450, Age))
+
+  data <- SimulNatura2014(file_compile=data_compile, horizon=4, climat = F)
+
+  expect(is.data.frame(data),TRUE)
+
+  expect_true('message' %in% names(data))
+
+  data_message <- data %>% filter(!is.na(message))
+  expect_equal(data_message$message,"age a l'exterieur de la plage des valeurs possibles (>10 et <400)")
+
+})
+
+
+
+test_that("La fonction principale SimulNatura2014() fonctionne fichier d'arbres avec des valeurs hors limite", {
+
+  data_arbre <- readRDS(test_path("fixtures", "fic_arbre_ex.rds")) %>%
+    mutate(dhpcm = ifelse(placette==1 & ESSENCE=='SAB', 250, dhpcm))
+  data_etude <- readRDS(test_path("fixtures", "fic_etude_ex.rds"))
+
+  data <- SimulNatura2014(file_arbre=data_arbre, file_etude=data_etude, horizon=4, climat=F)
+
+  expect(is.data.frame(data),TRUE)
+
+  expect_true('message' %in% names(data))
+
+  data_message <- data %>% filter(!is.na(message))
+  expect_equal(data_message$message,"Valeurs de dhpcm non permises (<200 cm)")
+
+})
+
+
+test_that("La fonction principale SimulNatura2014() fonctionne fichier d'arbres-études avec des valeurs hors limite", {
+
+  data_arbre <- readRDS(test_path("fixtures", "fic_arbre_ex.rds"))
+  data_etude <- readRDS(test_path("fixtures", "fic_etude_ex.rds")) %>%
+    mutate(AGE = ifelse(placette==1,450, AGE))
+
+  data <- SimulNatura2014(file_arbre=data_arbre, file_etude=data_etude, horizon=4, climat=F)
+
+  expect(is.data.frame(data),TRUE)
+
+  expect_true('message' %in% names(data))
+
+  data_message <- data %>% filter(!is.na(message))
+  expect_equal(data_message$message,"age a l'exterieur de la plage des valeurs possibles (>10 et <400)")
+
+})
+
+test_that("La fonction principale SimulNatura2014() fonctionne fichier d'arbres avec des valeurs hors limite pour les infos placette", {
+
+  data_arbre <- readRDS(test_path("fixtures", "fic_arbre_ex.rds")) %>%
+    mutate(TYPE_ECO = ifelse(placette==1, 'RX22',TYPE_ECO))
+
+  data_etude <- readRDS(test_path("fixtures", "fic_etude_ex.rds"))
+
+  data <- SimulNatura2014(file_arbre=data_arbre, file_etude=data_etude, horizon=4, climat=F)
+
+  expect(is.data.frame(data),TRUE)
+
+  expect_true('message' %in% names(data))
+
+  data_message <- data %>% filter(!is.na(message))
+  expect_equal(data_message$message,"veg_pot a l'exterieur de la plage de valeurs possibles")
+
+})
+
+test_that("La fonction principale SimulNatura2014() fonctionne avec fichier compile avec des valeurs de totaux hors limite", {
+
+  data_compile <- readRDS(test_path("fixtures", "fic_compil_ex.rds")) %>%
+    mutate(vsab=ifelse(placette==1, 499, vsab),
+           vrt=ifelse(placette==1, 150, vrt))
+
+  data <- SimulNatura2014(file_compile=data_compile, horizon=4, climat = F)
+
+  expect(is.data.frame(data),TRUE)
+
+  expect_true('message' %in% names(data))
+
+  data_message <- data %>% filter(!is.na(message))
+  expect_equal(data_message$message,"La somme des volumes des 5 groupes d'essences est a l'exterieur de la plage des valeurs possibles (0 a 600 m3/ha)")
+
+})
+
+test_that("La fonction principale SimulNatura2014() fonctionne avec fichier compile avec 2 types de valeurs hors limite", {
+
+  data_compile1 <- readRDS(test_path("fixtures", "fic_compil_ex.rds"))
+  data_compile2 <- readRDS(test_path("fixtures", "fic_compil_ex.rds")) %>% mutate(placette=placette+2)
+  data_compile <- bind_rows(data_compile1, data_compile2) %>%
+    mutate(vsab=ifelse(placette==1, 499, vsab),
+           vrt=ifelse(placette==1, 150, vrt),
+           Age=ifelse(placette==2, 450, Age))
+
+  data <- SimulNatura2014(file_compile=data_compile, horizon=4, climat = F)
+
+  expect(is.data.frame(data),TRUE)
+
+  expect_true('message' %in% names(data))
+
+  data_message <- data %>% filter(!is.na(message))
+  expect_equal(nrow(data_message),2)
+
+})
+
+
+test_that("La fonction principale SimulNatura2014() fonctionne fichier d'arbres avec tous les types de valeurs hors limite", {
+
+  data_arbre1 <- readRDS(test_path("fixtures", "fic_arbre_ex.rds"))
+  data_arbre2 <- readRDS(test_path("fixtures", "fic_arbre_ex.rds")) %>% mutate(placette = placette+2)
+  data_arbre <- bind_rows(data_arbre1, data_arbre2) %>%
+    mutate(TYPE_ECO = ifelse(placette==1, 'RX22',TYPE_ECO),
+           dhpcm = ifelse(placette==2 & ESSENCE=='EPN', 250, dhpcm))
+
+  data_etude1 <- readRDS(test_path("fixtures", "fic_etude_ex.rds"))
+  data_etude2 <- readRDS(test_path("fixtures", "fic_etude_ex.rds")) %>% mutate(placette = placette+2)
+  data_etude <- bind_rows(data_etude1, data_etude2) %>%
+    mutate(AGE = ifelse(placette==3 & ESSENCE=='EPN',450, AGE))
+
+  data <- SimulNatura2014(file_arbre=data_arbre, file_etude=data_etude, horizon=4, climat=F)
+
+  expect(is.data.frame(data),TRUE)
+
+  expect_true('message' %in% names(data))
+
+  data_message <- data %>% filter(!is.na(message))
+  expect_equal(nrow(data_message),3)
+
+})

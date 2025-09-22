@@ -175,11 +175,19 @@ SimulNatura2014 <- function(file_arbre, file_etude, file_compile, file_export, h
     if (is.character(Arbres)) {stop(Arbres)} # Erreur lors de la lecture du fichier des arbres
 
     # Valider le contenu des colonnes reliées aux arbres (si ht et/ou vol fournis, ils ne sont pas validés. Ils seront validés indirectement par les vxxx et vtot)
-    Arbres <- valid_arbre(type_fic='arbres', fichier=Arbres)
-    if (is.character(Arbres)) {stop(Arbres)} # s'il y a des erreurs, on arrête la simulation
+    Arbres_val <- valid_arbre(type_fic='arbres', fichier=Arbres)
 
+    Arbres <- Arbres_val[[1]] # fichier arbres filtré
+    placette_rejet1 <- Arbres_val[[2]] # liste des placettes/arbres rejetées avec le message
+
+    # si toutes les placettes ont été rejetées, arrêter la simulation
+    if (nrow(Arbres)==0) stop("Aucune placette valide dans le fichier file_arbre")
+
+    #if (is.character(Arbres)) {stop(Arbres)} # s'il y a des erreurs, on arrête la simulation
+
+    # ne garder que les arbres de dimension marchande et vivants
     Arbres <- Arbres %>%
-      filter(dhpcm>9) %>%
+      filter(dhpcm>9, etat %in% c('10', '12', '40', '42', '30', '32', '50', '52')) %>%
       mutate(no_arbre=row_number())
 
 
@@ -188,13 +196,18 @@ SimulNatura2014 <- function(file_arbre, file_etude, file_compile, file_export, h
     if (is.character(EtudeA)) {stop(EtudeA)}
 
     # Valider le contenu des colonnes reliées aux arbres etudes
-    EtudeA <- valid_arbre(type_fic='etudes', fichier=EtudeA)
-    if (is.character(EtudeA)) {stop(EtudeA)} # s'il y a des erreurs, on arrête la simulation
+    EtudeA_val <- valid_arbre(type_fic='etudes', fichier=EtudeA)
+    #if (is.character(EtudeA)) {stop(EtudeA)} # s'il y a des erreurs, on arrête la simulation
+
+    EtudeA <- EtudeA_val[[1]] # fichier arbres-etudes filtré
+    placette_rejet2 <- EtudeA_val[[2]] # liste des placettes/arbres-etudes rejetées avec le message
 
     EtudeA <- EtudeA %>%
       filter(dhpcm>9, toupper(etage) %in% c('C','D')) %>%
       dplyr::select(placette, essence, dhpcm, hauteur, age)
 
+    # si toutes les placettes ont été rejetées, arrêter la simulation
+    if (nrow(EtudeA)==0) stop("Aucune placette valide dans le fichier file_etude")
 
     ##################################################################################
     ################### Filtrer et préparer les données        #######################
@@ -204,7 +217,7 @@ SimulNatura2014 <- function(file_arbre, file_etude, file_compile, file_export, h
     filtre <- valid_placette(type_fic='arbres', fichier=Arbres, ht=ht, climat=climat)
 
     Arbres <- filtre[[1]] # fichier filtré
-    placette_rejet <- filtre[[2]] # liste des placettes rejetées avec le message
+    placette_rejet3 <- filtre[[2]] # liste des placettes rejetées avec le message
 
     # si toutes les placettes ont été rejetées, arrêter la simulation
     if (nrow(Arbres)==0) stop("Aucune placette valide dans le fichier des arbres")
@@ -231,6 +244,9 @@ SimulNatura2014 <- function(file_arbre, file_etude, file_compile, file_export, h
     }
 
 
+    # mettre les 3 fichiers de placette rejetées en un seul
+    placette_rejet <- bind_rows(placette_rejet1, placette_rejet2, placette_rejet3)
+
     ##################################################################################
     ################### Compiler les arbres à la placette   ##########################
     ##################################################################################
@@ -250,7 +266,7 @@ SimulNatura2014 <- function(file_arbre, file_etude, file_compile, file_export, h
     DataCompile <- inner_join(DataCompile, AgeHD, by = "placette")# %>%
       #dplyr::select(-dhp4_moy)
 
-  }
+  } # Fin de la préparation si fichier arbre et arbre-tude fournis
 
 
   ###########################################################################################################
@@ -327,8 +343,9 @@ Data_compile2 <- Prep_parametre(data=DataCompile)
 Data_simule <- Natura(data=Data_compile2, horizon=horizon, dec_perturb=dec_perturb, dec_tbe1=dec_tbe1, tbe1=tbe1, dec_tbe2=dec_tbe2, tbe2=tbe2)
 
 # liste des placettes rejetées
-if (!is.null(placette_rejet) | !is.null(placette_rejet2)) {
-  placette_rejet_tous <- as.data.frame(bind_rows(placette_rejet, placette_rejet2) %>% arrange(placette))
+#if (!is.null(placette_rejet) | !is.null(placette_rejet2)) {
+if (nrow(placette_rejet)>0 | nrow(placette_rejet2)>0) {
+  placette_rejet_tous <- bind_rows(placette_rejet, placette_rejet2) %>% arrange(placette) %>% dplyr::select(placette, message)
   # ajouter les placettes rejetées à la fin du fichier des simulations
   Data_simule <- bind_rows(Data_simule, placette_rejet_tous)
 }
