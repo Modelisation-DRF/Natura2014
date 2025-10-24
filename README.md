@@ -35,6 +35,7 @@ remotes::install_github("Modelisation-DRF/Natura2014")
 
 | Date |  Version  | Features et bugs | Détails |
 |:-----|:---------:|:-----------------|:--------|
+| 2025-10-24 | 2.2.5 |  | Mettre les tables arbre, étude et compile en data.frame dès le départ |
 | 2025-09-22 | 2.2.4 |  | Simulation n'arrête plus pour valeurs hors limite et placettes non simulées ajoutées au fichier des simulations |
 | 2025-09-19 | 2.2.3 |  | Ménage dans Imports et Depends et ajout package.R pour lister les @importFrom |
 | 2025-05-09 | 2.2.2 |  | Changer le package TarifQC pour OutilsDRF et renommer le package |
