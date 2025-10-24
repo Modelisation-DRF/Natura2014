@@ -21,7 +21,7 @@ SimulNatura2014(
 )
 }
 \arguments{
-\item{file_arbre}{Nom du fichier contenant les informations sur les arbres et les placettes (table, csv ou xlsx). Le fichier doit contenir une ligne par arbre ou par classe de dhp/essence.
+\item{file_arbre}{Nom de la table contenant les informations sur les arbres et les placettes (data.frame). Le fichier doit contenir une ligne par arbre ou par classe de dhp/essence.
 Si ce paramètre n'est pas utilisé, \code{file_compile} doit l'être. Le nom des colonnes doit être:
  \itemize{
    \item placette: identifiant unique de la placette
@@ -39,7 +39,7 @@ Si ce paramètre n'est pas utilisé, \code{file_compile} doit l'être. Le nom de
    \item latitude, longitude: coordonnées des placettes, en degré décimal. Optionel: nécessaires si \code{climat=T}
  }}
 
-\item{file_etude}{Nom du fichier contenant les arbres-études (table, csv ou xlsx) pour l'estimation de la hauteur dominante et l'âge du peuplement. Le fichier doit contenir une ligne par arbre-étude.
+\item{file_etude}{Nom de la table contenant les arbres-études (data.frame) pour l'estimation de la hauteur dominante et l'âge du peuplement. Le fichier doit contenir une ligne par arbre-étude.
 Si ce paramètre n'est pas utilisé, \code{file_compile} doit l'être. Le nom des colonnes doit être:
 \itemize{
   \item placette: identifiant unique de la placette
@@ -50,7 +50,7 @@ Si ce paramètre n'est pas utilisé, \code{file_compile} doit l'être. Le nom de
   \item age: âge de l'arbre-étude, mesuré à 1 m (années)
 }}
 
-\item{file_compile}{Optionnel. Nom du fichier contenant les caractéristiques dendrométriques des placettes (table, csv ou xlsx). Une ligne par placette.
+\item{file_compile}{Optionnel. Nom de la table contenant les caractéristiques dendrométriques des placettes (data.frame). Une ligne par placette.
  Si ce paramètre n'est pas utilisé, \code{file_arbre} et \code{file_etude} doivent l'être. Le nom des colonnes doit être:
  \itemize{
    \item placette: identifiant unique de la placette

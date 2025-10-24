@@ -7,7 +7,7 @@
 Lecture_arbres(file_arbre, ht, vol, climat)
 }
 \arguments{
-\item{file_arbre}{Nom du fichier contenant les informations sur les arbres et les placettes (table, csv ou xlsx). Le fichier doit contenir une ligne par arbre ou par classe de dhp/essence.
+\item{file_arbre}{Nom de la table contenant les informations sur les arbres et les placettes (data.frame). Le fichier doit contenir une ligne par arbre ou par classe de dhp/essence.
 Si ce paramètre n'est pas utilisé, \code{file_compile} doit l'être. Le nom des colonnes doit être:
  \itemize{
    \item placette: identifiant unique de la placette

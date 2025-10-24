@@ -7,7 +7,7 @@
 Lecture_compile(file_compile, climat)
 }
 \arguments{
-\item{file_compile}{Optionnel. Nom du fichier contenant les caractéristiques dendrométriques des placettes (table, csv ou xlsx). Une ligne par placette.
+\item{file_compile}{Optionnel. Nom de la table contenant les caractéristiques dendrométriques des placettes (data.frame). Une ligne par placette.
  Si ce paramètre n'est pas utilisé, \code{file_arbre} et \code{file_etude} doivent l'être. Le nom des colonnes doit être:
  \itemize{
    \item placette: identifiant unique de la placette
